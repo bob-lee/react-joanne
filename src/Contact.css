@@ -1,0 +1,12 @@
+.contact { 
+  display:flex;
+  flex-flow: column;
+  align-items: center;
+  text-align: center;
+
+  height: calc(100vh - 7.7em);
+  background-color: #eee;
+}
+.contact .content {
+  margin: 0.4em;
+}

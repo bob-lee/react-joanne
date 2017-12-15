@@ -1,0 +1,15 @@
+.home { 
+  width: calc(100vw - 0.0em);
+  height: calc(100vh - 7.7em);
+  position: relative;
+
+  background-image: url("./Flower99c_800.jpg");
+  background-size: cover;
+}
+
+@media only screen
+and (min-width: 415px) {
+  .home {
+    background-image: url("./Flower99c_1440.jpg");
+  }
+}

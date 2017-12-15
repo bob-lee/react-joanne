@@ -1,0 +1,83 @@
+.profile {
+  /*border-top: 1px solid red;
+  border-bottom: 1px solid red;*/
+
+  width: calc(100vw - 0.0em);
+  height: calc(100vh - 7.7em);
+  position: relative;
+
+  background-image: url("./Scan7_600t.jpg");
+  background-size: cover;
+  animation: vertical-scroll 40s linear 1;
+  animation-play-state: paused;
+  -webkit-animation-play-state: paused;
+}
+
+.profile .content {
+  position: absolute;
+  top: 1em;
+  /* max-height: calc(100vh - 7.7em); */
+  margin: 0 0.4em;
+  padding: 0.4em;
+  background: rgba(253, 250, 243, 0.7);
+	/* border: 1px solid silver; */
+  border-radius: .5em;
+  /*z-index: 1;*/
+}
+
+ul {
+  margin-bottom: 0;
+}
+
+@keyframes vertical-scroll {
+  from, to { background-position: 0 0; }
+  50% { background-position: 0 100%; }
+}
+
+.profile:hover {
+  animation-play-state: running;
+  -webkit-animation-play-state: running;
+}
+
+@media only screen
+and (orientation: portrait) {
+  .profile {
+    animation-duration: 10s;
+    animation-play-state: paused;
+    -webkit-animation-play-state: paused;
+  }
+}
+
+@media only screen
+and (min-width: 415px) {
+  .profile {
+    background-image: url("./Scan7_800t.jpg");
+  }
+
+  .profile .content {
+    width: 80vw;
+  }
+}
+
+.profile::before,
+.profile::after {
+  /* border: 1px solid blue; */
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+
+  display: block;
+
+  height: 20px;
+  background: linear-gradient(to bottom,rgba(253,250,243,1),rgba(253,250,243,1) 30%,rgba(253,250,243,0));
+}
+.profile::before {
+  top: 0;
+}
+.profile::after {
+  /* border: 1px solid gray; */
+  bottom: 0;
+
+  background: linear-gradient(to bottom,rgba(253,250,243,0),rgba(253,250,243,1) 70%,rgba(253,250,243,1));
+}
