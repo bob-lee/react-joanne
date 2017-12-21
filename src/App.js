@@ -5,11 +5,8 @@ import Profile from './Profile'
 import Work from './Work/Work'
 import Contact from './Contact'
 import Dropdown from './Dropdown'
-
-// import logo from './logo.svg';
 import './App.css'
 
-//@withRouter
 class App extends Component {
   titleWork = 'work'
 
@@ -21,7 +18,7 @@ class App extends Component {
   // componentWillReceiveProps(nextProps) {
   //   console.warn('App componentWillReceiveProps', nextProps)
   // }
-  componentWillUpdate(nextProps, nextState)/*(prevProps)*/ {
+  componentWillUpdate(nextProps, nextState) {
     if (this.props.location !== nextProps.location) {
       this.setTitleWork(nextProps.location.pathname);
     }
@@ -36,7 +33,6 @@ class App extends Component {
     }
     this.titleWork = titleWork
     console.info('setTitleWork', titleWork, frags)
-    
   }
 
   render() {

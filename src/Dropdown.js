@@ -5,8 +5,8 @@ export default class Dropdown extends React.Component {
   state = { checked: false }
 
   handleInputChange = event => {
-    console.log('handleInputChange', event.target)
-    this.setState({ checked: event.target.checked })
+    //console.log('handleInputChange', event.target)
+    this.setState({ checked: true })
   }
 
   handleOverlay = () => {

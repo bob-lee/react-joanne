@@ -1,9 +1,10 @@
 import React from 'react';
+import ErrorBoundary from '../ErrorBoundary'
 
 const API = 'https://us-central1-joanne-lee.cloudfunctions.net/getUrls';
 const INTERSECT_PAGESIZE = 2;
 
-export function withObserver(WrappedComponent) {
+export default function withObserver(WrappedComponent) {
   return class extends React.Component {
     state = { list: [] }
     intersectionRatio = null; // 1: fully shown, 0.5: half shown, ..
@@ -84,15 +85,15 @@ export function withObserver(WrappedComponent) {
 
     getUrls(path) {
       fetch(`${API}/${path}`)
-      .then(r => r.json())
-      .then(items => {
-        const itemsWithToLoad = items.map((item, index) => (
-          { toLoad: index < 2, ...item }
-        ))
-        console.log(itemsWithToLoad)
-        this._indexToObserve = 0
-        this.setState({ list: itemsWithToLoad })
-      })
+        .then(r => r.json())
+        .then(items => {
+          const itemsWithToLoad = items.map((item, index) => (
+            { toLoad: index < 2, ...item }
+          ))
+          console.log(itemsWithToLoad)
+          this._indexToObserve = 0
+          this.setState({ list: itemsWithToLoad })
+        })
     }
 
     componentWillUnmount() {
@@ -143,10 +144,21 @@ export function withObserver(WrappedComponent) {
     }
 
     render() {
-      return <WrappedComponent
-        list={this.state.list}
-        onImageLoaded={this.observe}
-        {...this.props} />
+      return (
+        <WrappedComponent
+          list={this.state.list}
+          onImageLoaded={this.observe}
+          {...this.props} />
+      )
     }
   }
 }
+/*
+        <ErrorBoundary>
+          <WrappedComponent
+            list={this.state.list}
+            onImageLoaded={this.observe}
+            {...this.props} />
+        </ErrorBoundary>
+
+*/

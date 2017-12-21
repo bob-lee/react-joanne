@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Image renders correctly with toLoad=false 1`] = `
+<div
+  className="image "
+>
+  <picture>
+    <img
+      alt="test.jpg"
+      className="image1"
+      onLoad={[Function]}
+      src={undefined}
+    />
+  </picture>
+  <div
+    className="expand"
+  >
+    <span>
+      test
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Image renders correctly with toLoad=true 1`] = `
+<div
+  className="image "
+>
+  <picture>
+    <img
+      alt="test.jpg"
+      className="image1"
+      onLoad={[Function]}
+      src="/test.jpg"
+    />
+  </picture>
+  <div
+    className="expand"
+  >
+    <span>
+      test
+    </span>
+    <img
+      alt="thumb"
+      className="image2"
+      src="/test_thumb.jpg"
+    />
+  </div>
+</div>
+`;
+
+exports[`onImageLoaded should be called on 'load' event 1`] = `
+<div
+  className="image show"
+>
+  <picture>
+    <img
+      alt="test.jpg"
+      className="image1"
+      onLoad={[Function]}
+      src="/test.jpg"
+    />
+  </picture>
+  <div
+    className="expand"
+  >
+    <span>
+      test
+    </span>
+    <img
+      alt="thumb"
+      className="image2"
+      src="/test_thumb.jpg"
+    />
+  </div>
+</div>
+`;

@@ -1,0 +1,109 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should have 'active' class for '/work/painting' page 1`] = `
+<div
+  className="ddm active"
+  to="/work"
+>
+  <input
+    checked={false}
+    id="ddm-1"
+    onChange={[Function]}
+    type="checkbox"
+  />
+  <label
+    className="header-menu-item"
+    htmlFor="ddm-1"
+  >
+    painting
+  </label>
+  <i
+    aria-hidden="true"
+    className="fa fa-angle-right fa-lg"
+  />
+  <div
+    className="dd"
+    onClick={[Function]}
+  >
+    <NavLink
+      activeClassName="active"
+      ariaCurrent="true"
+      to="/work/portrait"
+    >
+      portrait
+    </NavLink>
+    <NavLink
+      activeClassName="active"
+      ariaCurrent="true"
+      to="/work/painting"
+    >
+      painting
+    </NavLink>
+    <NavLink
+      activeClassName="active"
+      ariaCurrent="true"
+      to="/work/illustration"
+    >
+      illustration
+    </NavLink>
+  </div>
+  <div
+    className="overlay"
+    onClick={[Function]}
+  />
+</div>
+`;
+
+exports[`shouldn't have 'active' class for non-work page 1`] = `
+<div
+  className="ddm "
+  to="/work"
+>
+  <input
+    checked={false}
+    id="ddm-1"
+    onChange={[Function]}
+    type="checkbox"
+  />
+  <label
+    className="header-menu-item"
+    htmlFor="ddm-1"
+  >
+    work
+  </label>
+  <i
+    aria-hidden="true"
+    className="fa fa-angle-right fa-lg"
+  />
+  <div
+    className="dd"
+    onClick={[Function]}
+  >
+    <NavLink
+      activeClassName="active"
+      ariaCurrent="true"
+      to="/work/portrait"
+    >
+      portrait
+    </NavLink>
+    <NavLink
+      activeClassName="active"
+      ariaCurrent="true"
+      to="/work/painting"
+    >
+      painting
+    </NavLink>
+    <NavLink
+      activeClassName="active"
+      ariaCurrent="true"
+      to="/work/illustration"
+    >
+      illustration
+    </NavLink>
+  </div>
+  <div
+    className="overlay"
+    onClick={[Function]}
+  />
+</div>
+`;

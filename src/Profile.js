@@ -2,20 +2,24 @@ import React from 'react'
 import './Profile.css'
 
 export default class Profile extends React.Component {
-  state = { play: 'paused' }
+  state = { 
+    style: {} 
+  }
   isTouchDevice = window.matchMedia('(pointer:coarse)').matches
 
   toggleState = (event) => { // only for touch device
-    const play = this.state.play === 'paused' ? 'running' : 'paused'
-    console.log('toggleState', play)
-    this.setState({ play: play })
-    this.profile.style.animationPlayState = play
+    const isPaused = !this.state.style.animationPlayState || this.state.style.animationPlayState === 'paused' 
+    const play = isPaused ? 'running' : 'paused'
+    //console.log('toggleState', play)
+    this.setState({ 
+      style: { animationPlayState: play } 
+    })
   }
 
   render() {
     return (
       <div className="profile"
-        ref={(input) => { this.profile = input; }}
+        style={this.state.style}
         {...this.isTouchDevice ? { onClick: this.toggleState } : {}}>
         <div className="content">
           <span>
