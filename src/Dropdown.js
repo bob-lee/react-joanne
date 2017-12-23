@@ -4,6 +4,10 @@ import { NavLink } from 'react-router-dom'
 export default class Dropdown extends React.Component {
   state = { checked: false }
 
+  // constructor(props) {
+  //   super(props)
+  // }
+
   handleInputChange = event => {
     //console.log('handleInputChange', event.target)
     this.setState({ checked: true })
