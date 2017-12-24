@@ -19,6 +19,14 @@ const list = [
     text: 'test3_text',
   },
 ]
+const listPortrait = [
+  {
+    fileName: 'portrait1.jpg',
+    url: '/portrait1.jpg',
+    thumbUrl: '/portrait1_thumb.jpg',
+    text: 'portrait1_text',
+  },
+]
 
 // export const PATH_GOOD = 'goodPath'
 // export const PATH_BAD = 'badPath'
@@ -40,6 +48,8 @@ export default function getUrls(path) {
       () => {
         if (path === 'painting') {
           resolve(list)
+        } else if (path === 'portrait') {
+          resolve(listPortrait)
         } else {
           reject({ error: 'invalid path'})
         }

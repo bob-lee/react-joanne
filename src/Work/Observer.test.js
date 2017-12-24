@@ -58,3 +58,64 @@ it(`componentDidMount should have been called`, (done) => {
     done()
   })
 })
+
+it(`componentWillUnmount should have been called`, () => {
+  const unobserve = jest.fn()
+  const getUrls = jest.fn()
+
+  class Foo extends Observer {
+    constructor(props) {
+      super(props)
+      this.unobserve = unobserve
+      this.getUrls = getUrls
+    }
+
+    render() {
+      return (<Observer {...this.props} />)
+    }
+  }
+
+  const props = getProps('painting')
+  const wrapper = shallow(<Foo {...props} />)
+  
+  expect(getUrls.mock.calls.length).toBe(1)
+  expect(unobserve.mock.calls.length).toBe(0)
+  expect(wrapper.props().match.params.name).toBe('painting')
+  //expect(toJson(wrapper)).toMatchSnapshot()
+  
+  wrapper.unmount()
+
+  expect(getUrls.mock.calls.length).toBe(1)
+  expect(unobserve.mock.calls.length).toBe(1)
+})
+
+it(`componentWillReceiveProps should have been called`, () => {
+  const unobserve = jest.fn()
+  const getUrls = jest.fn()
+  
+  class Foo extends Observer {
+    constructor(props) {
+      super(props)
+      this.unobserve = unobserve
+      this.getUrls = getUrls
+    }
+  
+    render() {
+      return (<Observer {...this.props} />)
+    }
+  }
+    
+  const props = getProps('painting')
+  const wrapper = shallow(<Foo {...props} />)
+
+  expect(getUrls.mock.calls.length).toBe(1)
+  expect(unobserve.mock.calls.length).toBe(0)
+  expect(wrapper.props().match.params.name).toBe('painting')
+
+  const nextProps = getProps('portrait')
+  wrapper.setProps({...nextProps})
+
+  expect(getUrls.mock.calls.length).toBe(2)
+  expect(unobserve.mock.calls.length).toBe(1)
+  expect(wrapper.props().match.params.name).toBe('portrait')
+})

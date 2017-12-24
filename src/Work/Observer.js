@@ -95,14 +95,13 @@ export default class Observer extends React.Component {
     const path = this.props.match.params.name
     const nextPath = nextProps.match.params.name
     if (path !== nextPath) {
-      console.warn('Work componentWillReceiveProps', path, nextPath)
+      console.warn(`Work componentWillReceiveProps '${path}' -> '${nextPath}'`)
       this.unobserve()
       this.getUrls(nextPath)
     }
   }
 
   componentDidMount() {
-    //console.warn('Observer componentDidMount', this.props)
     const path = this.props.match.params.name
     console.warn(`Observer componentDidMount '${path}'`)
     this.getUrls(path)
