@@ -30,6 +30,7 @@ it(`initially should have empty {} style`, () => {
   isTouchDevice(true)
   const wrapper = shallow(<Profile />)
   expect(wrapper.state().style).toEqual({})
+  expect(wrapper.props().style).toEqual({})
 })
 
 it(`should have {animationPlayState:'running'} style on 1st click`, () => {
@@ -37,14 +38,15 @@ it(`should have {animationPlayState:'running'} style on 1st click`, () => {
   const wrapper = shallow(<Profile />)
   wrapper.simulate('click')
   expect(wrapper.state().style.animationPlayState).toBe('running')
+  expect(wrapper.props().style.animationPlayState).toBe('running')
 })
 
 it(`should toggle animationPlayState on 2nd click`, () => {
   isTouchDevice(true)
   const wrapper = shallow(<Profile />)
-  //console.log(wrapper.instance())
   
   wrapper.simulate('click')
   wrapper.simulate('click')
   expect(wrapper.state().style.animationPlayState).toBe('paused')
+  expect(wrapper.props().style.animationPlayState).toBe('paused')
 })

@@ -15,9 +15,7 @@ const getItem = (toLoad) => ({
 const getProps = (toLoad) => ({
   item: getItem(toLoad),
   index: 0,
-  onImageLoaded: jest.fn()/*({ element, index }) => {
-    console.log(`onImageLoaded(${index}`, element)
-  }*/
+  onImageLoaded: jest.fn()
 })
 
 it('Image renders without crashing', () => {

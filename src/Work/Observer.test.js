@@ -45,7 +45,6 @@ it(`getUrls('unknown') should reject`, () => {
     })
 })
 
-// how can I test componentDidMount to be called?
 it(`componentDidMount should have been called`, (done) => {
   expect.assertions(1)
 
@@ -118,4 +117,34 @@ it(`componentWillReceiveProps should have been called`, () => {
   expect(getUrls.mock.calls.length).toBe(2)
   expect(unobserve.mock.calls.length).toBe(1)
   expect(wrapper.props().match.params.name).toBe('portrait')
+})
+
+it(`lifecycle method should have been called`, () => {
+  const componentDidMount = jest.fn()
+  const componentWillUnmount = jest.fn()
+    
+  // 1. First extends your class to mock lifecycle methods
+  class Foo extends Observer {
+    constructor(props) {
+      super(props)
+      this.componentDidMount = componentDidMount
+      this.componentWillUnmount = componentWillUnmount
+    }
+  
+    render() {
+      return (<Observer />)
+    }
+  }
+    
+  // 2. shallow-render and test componentDidMount
+  const wrapper = shallow(<Foo />)
+
+  expect(componentDidMount.mock.calls.length).toBe(1)
+  expect(componentWillUnmount.mock.calls.length).toBe(0)
+
+  // 3. unmount and test componentWillUnmount
+  wrapper.unmount()
+
+  expect(componentDidMount.mock.calls.length).toBe(1)
+  expect(componentWillUnmount.mock.calls.length).toBe(1)
 })
