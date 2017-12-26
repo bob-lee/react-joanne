@@ -1,0 +1,15 @@
+@keyframes loader {
+  to {
+      background-position: -312px 0;
+  }
+}
+
+.loader { /* usage: <div class="loader">Loading...</div> */
+  width: 26px;
+  height: 26px;
+
+  text-indent: 999px;
+  overflow: hidden;
+  background: url('./loader.png') 0 0;
+  animation: loader 1.2s infinite steps(12);
+}

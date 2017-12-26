@@ -4,47 +4,61 @@ exports[`Images renders correctly 1`] = `
 <div
   className="images"
 >
-  <div
-    className="image "
-  >
-    <picture>
-      <img
-        alt="test1.jpg"
-        className="image1"
-        onLoad={[Function]}
-        src="/test1.jpg"
-      />
-    </picture>
+  <div>
     <div
-      className="expand"
+      className="loader"
+      style={
+        Object {
+          "margin": "0 auto",
+        }
+      }
     >
-      <span>
-        test1
-      </span>
-      <img
-        alt="thumb"
-        className="image2"
-        src="/test1_thumb.jpg"
-      />
+      Loading...
+    </div>
+    <div
+      className="image"
+    >
+      <picture>
+        <img
+          alt="test1.jpg"
+          className="image1"
+          onLoad={[Function]}
+          src="/test1.jpg"
+        />
+      </picture>
+      <div
+        className="expand"
+      >
+        <span>
+          test1
+        </span>
+        <img
+          alt="thumb"
+          className="image2"
+          src="/test1_thumb.jpg"
+        />
+      </div>
     </div>
   </div>
-  <div
-    className="image "
-  >
-    <picture>
-      <img
-        alt="test2.jpg"
-        className="image1"
-        onLoad={[Function]}
-        src={undefined}
-      />
-    </picture>
+  <div>
     <div
-      className="expand"
+      className="image"
     >
-      <span>
-        test2
-      </span>
+      <picture>
+        <img
+          alt="test2.jpg"
+          className="image1"
+          onLoad={[Function]}
+          src={undefined}
+        />
+      </picture>
+      <div
+        className="expand"
+      >
+        <span>
+          test2
+        </span>
+      </div>
     </div>
   </div>
 </div>
@@ -89,28 +103,30 @@ exports[`Images renders correctly after first image loaded 1`] = `
       key="test1.jpg"
       onImageLoaded={[Function]}
     >
-      <div
-        className="image show"
-      >
-        <picture>
-          <img
-            alt="test1.jpg"
-            className="image1"
-            onLoad={[Function]}
-            src="/test1.jpg"
-          />
-        </picture>
+      <div>
         <div
-          className="expand"
+          className="image show"
         >
-          <span>
-            test1
-          </span>
-          <img
-            alt="thumb"
-            className="image2"
-            src="/test1_thumb.jpg"
-          />
+          <picture>
+            <img
+              alt="test1.jpg"
+              className="image1"
+              onLoad={[Function]}
+              src="/test1.jpg"
+            />
+          </picture>
+          <div
+            className="expand"
+          >
+            <span>
+              test1
+            </span>
+            <img
+              alt="thumb"
+              className="image2"
+              src="/test1_thumb.jpg"
+            />
+          </div>
         </div>
       </div>
     </Image>
@@ -128,22 +144,24 @@ exports[`Images renders correctly after first image loaded 1`] = `
       key="test2.jpg"
       onImageLoaded={[Function]}
     >
-      <div
-        className="image "
-      >
-        <picture>
-          <img
-            alt="test2.jpg"
-            className="image1"
-            onLoad={[Function]}
-          />
-        </picture>
+      <div>
         <div
-          className="expand"
+          className="image"
         >
-          <span>
-            test2
-          </span>
+          <picture>
+            <img
+              alt="test2.jpg"
+              className="image1"
+              onLoad={[Function]}
+            />
+          </picture>
+          <div
+            className="expand"
+          >
+            <span>
+              test2
+            </span>
+          </div>
         </div>
       </div>
     </Image>
