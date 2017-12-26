@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Work full-renders correctly 1`] = `
+<Component
+  match={
+    Object {
+      "params": Object {
+        "name": "painting",
+      },
+    }
+  }
+>
+  <Images
+    list={Array []}
+    match={
+      Object {
+        "params": Object {
+          "name": "painting",
+        },
+      }
+    }
+    onImageLoaded={[Function]}
+  >
+    <div
+      className="images"
+    />
+  </Images>
+</Component>
+`;
+
+exports[`Work renders correctly 1`] = `
+<div
+  className="images"
+/>
+`;
+
+exports[`Work shallow-renders correctly 1`] = `
+<Images
+  list={Array []}
+  match={
+    Object {
+      "params": Object {
+        "name": "painting",
+      },
+    }
+  }
+  onImageLoaded={[Function]}
+/>
+`;

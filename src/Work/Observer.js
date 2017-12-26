@@ -75,6 +75,7 @@ export default class Observer extends React.Component {
   }
 
   getUrls(path) {
+    //this.unobserve()
     return getUrls(path)
       .then(items => {
         const itemsWithToLoad = items.map((item, index) => (
@@ -83,6 +84,8 @@ export default class Observer extends React.Component {
         console.log('itemsWithToLoad:', itemsWithToLoad)
         this._indexToObserve = 0
         this.setState({ list: itemsWithToLoad })
+
+        //window.scrollTo(0, 0)
       })
   }
 

@@ -19,6 +19,12 @@ const getInstance = path => {
   return inst
 }
 
+it('Observer renders without crashing', () => {
+  const props = getProps('painting')
+  const div = document.createElement('div')
+  ReactDOM.render(<Observer {...props} />, div)
+})
+
 it(`getUrls('painting') should resolve`, () => {
   expect.assertions(4)
 

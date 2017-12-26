@@ -1,22 +1,22 @@
 // __mocks__/api.js
-const list = [
+const listPainting = [
   {
-    fileName: 'test1.jpg',
-    url: '/test1.jpg',
-    thumbUrl: '/test1_thumb.jpg',
-    text: 'test1_text',
+    fileName: 'painting1.jpg',
+    url: '/painting1.jpg',
+    thumbUrl: '/painting1_thumb.jpg',
+    text: 'painting1_text',
   },
   {
-    fileName: 'test2.jpg',
-    url: '/test2.jpg',
-    thumbUrl: '/test2_thumb.jpg',
-    text: 'test2_text',
+    fileName: 'painting2.jpg',
+    url: '/painting2.jpg',
+    thumbUrl: '/painting2_thumb.jpg',
+    text: 'painting2_text',
   },
   {
-    fileName: 'test3.jpg',
-    url: '/test3.jpg',
-    thumbUrl: '/test3_thumb.jpg',
-    text: 'test3_text',
+    fileName: 'painting3.jpg',
+    url: '/painting3.jpg',
+    thumbUrl: '/painting3_thumb.jpg',
+    text: 'painting3_text',
   },
 ]
 const listPortrait = [
@@ -28,19 +28,18 @@ const listPortrait = [
   },
 ]
 
-// export const PATH_GOOD = 'goodPath'
-// export const PATH_BAD = 'badPath'
-
-// export const stub = jest.fn((path) => {
-//   if (path === 'painting') {
-//     return Promise.resolve(list)
-//   } else {
-//     return Promise.reject({
-//       error: 'invalid path \'' + path + '\'',
-//     })
-//   }
-// })
-
+export default function getUrls(path) {
+  return new Promise((resolve, reject) => {
+    if (path === 'painting') {
+      resolve(listPainting)
+    } else if (path === 'portrait') {
+      resolve(listPortrait)
+    } else {
+      reject({ error: 'invalid path' })
+    }
+  });
+}
+/*
 export default function getUrls(path) {
   //return stub(path)
   return new Promise((resolve, reject) => {
@@ -51,9 +50,10 @@ export default function getUrls(path) {
         } else if (path === 'portrait') {
           resolve(listPortrait)
         } else {
-          reject({ error: 'invalid path'})
+          reject({ error: 'invalid path' })
         }
       }
     );
   });
 }
+*/
