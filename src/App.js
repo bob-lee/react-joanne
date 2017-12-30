@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import { NavLink, Route, withRouter } from 'react-router-dom'
+import { NavLink, Route, withRouter, Switch } from 'react-router-dom'
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import Home from './Home'
 import Profile from './Profile'
 import Work from './Work/Work'
 import Contact from './Contact'
 import Dropdown from './Dropdown'
 import './App.css'
+
+const timeout = { enter: 1000, exit: 1000 }
 
 class App extends Component {
   titleWork = 'work'
@@ -50,19 +53,28 @@ class App extends Component {
           </nav>
         </header>
 
-        <main >
-          <Route exact path="/" component={Home} />
-          <Route path="/profile" component={Profile} />
-          <Route path="/work/:name" component={Work} />
-          <Route path="/contact" component={Contact} />
-        </main>
+        <TransitionGroup>
+          <CSSTransition
+            classNames="slide"
+            key={this.props.location.key}
+            timeout={timeout}>
+            <main >
+              <Switch location={this.props.location}>
+                <Route exact path="/" component={Home} />
+                <Route path="/profile" component={Profile} />
+                <Route path="/work/:name" component={Work} />
+                <Route path="/contact" component={Contact} />
+              </Switch>
+            </main>
+          </CSSTransition>
+        </TransitionGroup>
 
         <footer>
           Copyright © 2017 Joanne Lee
         </footer>
       </div >
-    );
+    )
   }
 }
 
-export default withRouter(App);
+export default withRouter(App)
