@@ -6,7 +6,9 @@ import Profile from './Profile'
 import Work from './Work/Work'
 import Contact from './Contact'
 import Dropdown from './Dropdown'
-import './App.css'
+if (typeof window !== 'undefined') {
+  require('./App.css')
+}
 
 const timeout = { enter: 1000, exit: 1000 }
 
@@ -14,13 +16,10 @@ class App extends Component {
   titleWork = 'work'
 
   componentWillMount() {
-    console.warn('App componentWillMount', this.props.location)
+    console.info('App componentWillMount', this.props.location)
     this.setTitleWork(this.props.location.pathname);
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   console.warn('App componentWillReceiveProps', nextProps)
-  // }
   componentWillUpdate(nextProps, nextState) {
     if (this.props.location !== nextProps.location) {
       this.setTitleWork(nextProps.location.pathname);

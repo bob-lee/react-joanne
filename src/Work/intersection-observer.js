@@ -10,7 +10,6 @@
 (function(window, document) {
   'use strict';
   
-  
   // Exits early if all IntersectionObserver and IntersectionObserverEntry
   // features are natively supported.
   if ('IntersectionObserver' in window &&
