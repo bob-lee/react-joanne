@@ -12,3 +12,9 @@ The website was built and deployed using following technologies:
 
 [Visit the web!](https://react-joanne.firebaseapp.com)
 
+To build, `yarn build:ssr` and edit `functions/index.html` file to insert a placeholder inside 'root' div for server rendering, then `yarn serve` or `firebase deploy`.
+
+```
+// functions/index.html
+<div id="root"><!-- ::APP:: --></div>
+```
