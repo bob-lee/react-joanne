@@ -28,4 +28,4 @@ app.get('**', (req, res) => {
   res.send(finalHtml);
 })
 
-export let ssrapp = functions.https.onRequest(app);
+export let ssrReactJoanne = functions.https.onRequest(app);

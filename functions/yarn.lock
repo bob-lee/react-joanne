@@ -2,21 +2,48 @@
 # yarn lockfile v1
 
 
-"@google-cloud/common-grpc@^0.4.0":
-  version "0.4.3"
-  resolved "https://registry.yarnpkg.com/@google-cloud/common-grpc/-/common-grpc-0.4.3.tgz#83689591a1011fee57d32aa6a17fe2c5eb3a70bc"
+"@firebase/app-types@0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@firebase/app-types/-/app-types-0.1.1.tgz#1b794e101c779310763b1bfce8c24e7728fb9a91"
+
+"@firebase/app@^0.1.1":
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/@firebase/app/-/app-0.1.6.tgz#0418c110a6155c19de57a433a59eeeba6feb224f"
+  dependencies:
+    "@firebase/app-types" "0.1.1"
+    "@firebase/util" "0.1.6"
+
+"@firebase/database-types@0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@firebase/database-types/-/database-types-0.1.1.tgz#601b8040191766777b785c1675eac34ce57c669c"
+
+"@firebase/database@^0.1.3":
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/@firebase/database/-/database-0.1.7.tgz#ed7b964646c79fdcb175f59a6d38d632dd0354f1"
+  dependencies:
+    "@firebase/database-types" "0.1.1"
+    "@firebase/util" "0.1.6"
+    faye-websocket "0.11.1"
+
+"@firebase/util@0.1.6":
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/@firebase/util/-/util-0.1.6.tgz#cfcb537f7ba46054f2aa2b06c6cc2b63ce754e4a"
+
+"@google-cloud/common-grpc@^0.5.0":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@google-cloud/common-grpc/-/common-grpc-0.5.3.tgz#cfc7ba598549b0284f3176a54338687a7cab60f7"
   dependencies:
     "@google-cloud/common" "^0.13.6"
     dot-prop "^2.4.0"
     duplexify "^3.5.1"
-    extend "^3.0.0"
+    extend "^3.0.1"
     grpc "^1.7.1"
     is "^3.2.0"
     modelo "^4.2.0"
-    retry-request "^3.0.0"
+    retry-request "^3.3.1"
     through2 "^2.0.3"
 
-"@google-cloud/common@^0.13.5", "@google-cloud/common@^0.13.6":
+"@google-cloud/common@^0.13.6":
   version "0.13.6"
   resolved "https://registry.yarnpkg.com/@google-cloud/common/-/common-0.13.6.tgz#a9d8e137bc429a44aba9689fe6a0e4331784f853"
   dependencies:
@@ -39,7 +66,7 @@
     string-format-obj "^1.1.0"
     through2 "^2.0.3"
 
-"@google-cloud/common@^0.15.1":
+"@google-cloud/common@^0.15.0", "@google-cloud/common@^0.15.1":
   version "0.15.1"
   resolved "https://registry.yarnpkg.com/@google-cloud/common/-/common-0.15.1.tgz#a6f79535de626cc0e05b0ccda9db0c36099e47a3"
   dependencies:
@@ -62,18 +89,19 @@
     string-format-obj "^1.1.0"
     through2 "^2.0.3"
 
-"@google-cloud/firestore@~0.8.2":
-  version "0.8.2"
-  resolved "https://registry.yarnpkg.com/@google-cloud/firestore/-/firestore-0.8.2.tgz#e93a7068b723f0773c1af62f3494c0633ba2d346"
+"@google-cloud/firestore@^0.10.0":
+  version "0.10.1"
+  resolved "https://registry.yarnpkg.com/@google-cloud/firestore/-/firestore-0.10.1.tgz#ef6e28b25c51490290147b0a4b547c602a998768"
   dependencies:
-    "@google-cloud/common" "^0.13.5"
-    "@google-cloud/common-grpc" "^0.4.0"
+    "@google-cloud/common" "^0.15.0"
+    "@google-cloud/common-grpc" "^0.5.0"
     bun "^0.0.12"
     extend "^3.0.1"
     functional-red-black-tree "^1.0.1"
     google-gax "^0.14.1"
-    grpc "^1.6.0"
+    grpc "1.7.1"
     is "^3.2.0"
+    safe-buffer "^5.1.1"
     through2 "^2.0.3"
 
 "@google-cloud/storage@^1.2.1":
@@ -170,7 +198,7 @@
   dependencies:
     "@types/node" "*"
 
-"@types/jsonwebtoken@^7.1.32", "@types/jsonwebtoken@^7.1.33":
+"@types/jsonwebtoken@^7.1.32":
   version "7.2.5"
   resolved "https://registry.yarnpkg.com/@types/jsonwebtoken/-/jsonwebtoken-7.2.5.tgz#413159d570ec45fc3e7da7ea3f7bca6fb9300e72"
   dependencies:
@@ -188,7 +216,7 @@
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@types/mime/-/mime-2.0.0.tgz#5a7306e367c539b9f6543499de8dd519fac37a8b"
 
-"@types/node@*", "@types/node@^8.0.32", "@types/node@^8.5.5":
+"@types/node@*", "@types/node@^8.0.53", "@types/node@^8.5.5":
   version "8.5.8"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.5.8.tgz#92509422653f10e9c0ac18d87e0610b39f9821c7"
 
@@ -410,9 +438,17 @@ caseless@~0.12.0:
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
 
+chain-function@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/chain-function/-/chain-function-1.0.0.tgz#0d4ab37e7e18ead0bdc47b920764118ce58733dc"
+
 "charenc@>= 0.0.1":
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/charenc/-/charenc-0.0.2.tgz#c0a1d2f3a7092e03774bfa83f14c0fc5790a8667"
+
+classnames@^2.2.5:
+  version "2.2.5"
+  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.5.tgz#fb3801d453467649ef3603c7d61a02bd129bde6d"
 
 cliui@^3.0.3:
   version "3.2.0"
@@ -557,6 +593,10 @@ detect-libc@^1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/detect-libc/-/detect-libc-1.0.3.tgz#fa137c4bd698edf55cd5cd02ac559f91a4c4ba9b"
 
+dom-helpers@^3.2.0:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/dom-helpers/-/dom-helpers-3.3.1.tgz#fc1a4e15ffdf60ddde03a480a9c0fece821dd4a6"
+
 dot-prop@^2.4.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/dot-prop/-/dot-prop-2.4.0.tgz#848e28f7f1d50740c6747ab3cb07670462b6f89c"
@@ -674,6 +714,12 @@ fast-json-stable-stringify@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/fast-json-stable-stringify/-/fast-json-stable-stringify-2.0.0.tgz#d5142c0caee6b1189f87d3a76111064f86c8bbf2"
 
+faye-websocket@0.11.1:
+  version "0.11.1"
+  resolved "https://registry.yarnpkg.com/faye-websocket/-/faye-websocket-0.11.1.tgz#f0efe18c4f56e4f40afc7e06c719fd5ee6188f38"
+  dependencies:
+    websocket-driver ">=0.5.1"
+
 faye-websocket@0.9.3:
   version "0.9.3"
   resolved "https://registry.yarnpkg.com/faye-websocket/-/faye-websocket-0.9.3.tgz#482a505b0df0ae626b969866d3bd740cdb962e83"
@@ -704,23 +750,23 @@ finalhandler@1.1.0:
     statuses "~1.3.1"
     unpipe "~1.0.0"
 
-firebase-admin@~5.4.0:
-  version "5.4.3"
-  resolved "https://registry.yarnpkg.com/firebase-admin/-/firebase-admin-5.4.3.tgz#784114c62a6dd5a1bfc67b54fa0cfdd02147871a"
+firebase-admin@^5.8.0:
+  version "5.8.0"
+  resolved "https://registry.yarnpkg.com/firebase-admin/-/firebase-admin-5.8.0.tgz#2363599ad44a495f3673ef5876e18cbed6b33385"
   dependencies:
-    "@google-cloud/firestore" "~0.8.2"
+    "@firebase/app" "^0.1.1"
+    "@firebase/database" "^0.1.3"
+    "@google-cloud/firestore" "^0.10.0"
     "@google-cloud/storage" "^1.2.1"
     "@types/google-cloud__storage" "^1.1.1"
-    "@types/jsonwebtoken" "^7.1.33"
-    "@types/node" "^8.0.32"
+    "@types/node" "^8.0.53"
     faye-websocket "0.9.3"
-    google-auth-library "^0.10.0"
-    jsonwebtoken "7.4.3"
+    jsonwebtoken "8.1.0"
     node-forge "0.7.1"
 
-firebase-functions@^0.7.0:
-  version "0.7.5"
-  resolved "https://registry.yarnpkg.com/firebase-functions/-/firebase-functions-0.7.5.tgz#11eb091d99bf96504d141ca5f4855ff640164b00"
+firebase-functions@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/firebase-functions/-/firebase-functions-0.8.0.tgz#ed6af0cc2f706d9cd23551cd85563b2e8dd4e68d"
   dependencies:
     "@types/express" "^4.0.33"
     "@types/jsonwebtoken" "^7.1.32"
@@ -910,15 +956,15 @@ graceful-fs@^4.1.11, graceful-fs@^4.1.2:
   version "4.1.11"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.1.11.tgz#0e8bdfe4d1ddb8854d64e04ea7c00e2a026e5658"
 
-grpc@^1.6.0, grpc@^1.7.1:
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/grpc/-/grpc-1.8.0.tgz#9d49f1b05c19c4a35c480bd14c632386de6bf664"
+grpc@1.7.1, grpc@^1.7.1:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/grpc/-/grpc-1.7.1.tgz#a1eecd074e78ffe5bb3bb64dcc7417d14fdb5cc4"
   dependencies:
     arguejs "^0.2.3"
-    lodash "^4.17.4"
-    nan "^2.8.0"
+    lodash "^4.15.0"
+    nan "^2.0.0"
     node-pre-gyp "^0.6.39"
-    protobufjs "^5.0.2"
+    protobufjs "^5.0.0"
 
 grpc@~1.7.2:
   version "1.7.3"
@@ -989,6 +1035,16 @@ hawk@~6.0.2:
     hoek "4.x.x"
     sntp "2.x.x"
 
+history@^4.7.2:
+  version "4.7.2"
+  resolved "https://registry.yarnpkg.com/history/-/history-4.7.2.tgz#22b5c7f31633c5b8021c7f4a8a954ac139ee8d5b"
+  dependencies:
+    invariant "^2.2.1"
+    loose-envify "^1.2.0"
+    resolve-pathname "^2.2.0"
+    value-equal "^0.4.0"
+    warning "^3.0.0"
+
 hoek@2.x.x:
   version "2.16.3"
   resolved "https://registry.yarnpkg.com/hoek/-/hoek-2.16.3.tgz#20bb7403d3cea398e91dc4710a8ff1b8274a25ed"
@@ -996,6 +1052,10 @@ hoek@2.x.x:
 hoek@4.x.x:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/hoek/-/hoek-4.2.0.tgz#72d9d0754f7fe25ca2d01ad8f8f9a9449a89526d"
+
+hoist-non-react-statics@^2.3.0:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.3.1.tgz#343db84c6018c650778898240135a1420ee22ce0"
 
 http-errors@1.6.2, http-errors@~1.6.2:
   version "1.6.2"
@@ -1048,6 +1108,12 @@ inherits@2, inherits@2.0.3, inherits@^2.0.1, inherits@^2.0.3, inherits@~2.0.0, i
 ini@~1.3.0:
   version "1.3.5"
   resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.5.tgz#eee25f56db1c9ec6085e0c22778083f596abf927"
+
+invariant@^2.2.1, invariant@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/invariant/-/invariant-2.2.2.tgz#9e1f56ac0acdb6bf303306f338be3b204ae60360"
+  dependencies:
+    loose-envify "^1.0.0"
 
 invert-kv@^1.0.0:
   version "1.0.0"
@@ -1145,7 +1211,22 @@ jsonify@~0.0.0:
   version "0.0.0"
   resolved "https://registry.yarnpkg.com/jsonify/-/jsonify-0.0.0.tgz#2c74b6ee41d93ca51b7b5aaee8f503631d252a73"
 
-jsonwebtoken@7.4.3, jsonwebtoken@^7.1.9:
+jsonwebtoken@8.1.0:
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/jsonwebtoken/-/jsonwebtoken-8.1.0.tgz#c6397cd2e5fd583d65c007a83dc7bb78e6982b83"
+  dependencies:
+    jws "^3.1.4"
+    lodash.includes "^4.3.0"
+    lodash.isboolean "^3.0.3"
+    lodash.isinteger "^4.0.4"
+    lodash.isnumber "^3.0.3"
+    lodash.isplainobject "^4.0.6"
+    lodash.isstring "^4.0.1"
+    lodash.once "^4.0.0"
+    ms "^2.0.0"
+    xtend "^4.0.1"
+
+jsonwebtoken@^7.1.9:
   version "7.4.3"
   resolved "https://registry.yarnpkg.com/jsonwebtoken/-/jsonwebtoken-7.4.3.tgz#77f5021de058b605a1783fa1283e99812e645638"
   dependencies:
@@ -1187,6 +1268,26 @@ lcid@^1.0.0:
   dependencies:
     invert-kv "^1.0.0"
 
+lodash.includes@^4.3.0:
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/lodash.includes/-/lodash.includes-4.3.0.tgz#60bb98a87cb923c68ca1e51325483314849f553f"
+
+lodash.isboolean@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/lodash.isboolean/-/lodash.isboolean-3.0.3.tgz#6c2e171db2a257cd96802fd43b01b20d5f5870f6"
+
+lodash.isinteger@^4.0.4:
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/lodash.isinteger/-/lodash.isinteger-4.0.4.tgz#619c0af3d03f8b04c31f5882840b77b11cd68343"
+
+lodash.isnumber@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/lodash.isnumber/-/lodash.isnumber-3.0.3.tgz#3ce76810c5928d03352301ac287317f11c0b1ffc"
+
+lodash.isplainobject@^4.0.6:
+  version "4.0.6"
+  resolved "https://registry.yarnpkg.com/lodash.isplainobject/-/lodash.isplainobject-4.0.6.tgz#7c526a52d89b45c45cc690b88163be0497f550cb"
+
 lodash.isstring@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/lodash.isstring/-/lodash.isstring-4.0.1.tgz#d527dfb5456eca7cc9bb95d5daeaf88ba54a5451"
@@ -1203,7 +1304,7 @@ lodash.once@^4.0.0:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/lodash.once/-/lodash.once-4.1.1.tgz#0dd3971213c7c56df880977d504c88fb471a97ac"
 
-lodash@^4.14.0, lodash@^4.15.0, lodash@^4.17.2, lodash@^4.17.4, lodash@^4.6.1:
+lodash@^4.14.0, lodash@^4.15.0, lodash@^4.17.2, lodash@^4.6.1:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
@@ -1215,7 +1316,7 @@ long@^3.2.0, long@~3:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/long/-/long-3.2.0.tgz#d821b7138ca1cb581c172990ef14db200b5c474b"
 
-loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.3.1:
+loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.2.0, loose-envify@^1.3.1:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/loose-envify/-/loose-envify-1.3.1.tgz#d1a8ad33fa9ce0e713d65fdd0ac8b748d478c848"
   dependencies:
@@ -1285,15 +1386,11 @@ moment@2.x.x:
   version "2.20.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.20.1.tgz#d6eb1a46cbcc14a2b2f9434112c1ff8907f313fd"
 
-ms@2.0.0:
+ms@2.0.0, ms@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
 
-ms@^2.0.0:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.1.tgz#30a5864eb3ebb0a66f2ebe6d727af06a09d86e0a"
-
-nan@^2.0.0, nan@^2.8.0:
+nan@^2.0.0:
   version "2.8.0"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.8.0.tgz#ed715f3fe9de02b57a5e6252d90a96675e1f085a"
 
@@ -1405,6 +1502,12 @@ path-to-regexp@0.1.7:
   version "0.1.7"
   resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-0.1.7.tgz#df604178005f522f15eb4490e7247a1bfaa67f8c"
 
+path-to-regexp@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-1.7.0.tgz#59fde0f435badacba103a84e9d3bc64e96b9937d"
+  dependencies:
+    isarray "0.0.1"
+
 performance-now@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-0.2.0.tgz#33ef30c5c77d4ea21c5a53869d91b56d8f2555e5"
@@ -1441,7 +1544,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.6.0:
+prop-types@^15.5.4, prop-types@^15.5.8, prop-types@^15.6.0:
   version "15.6.0"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.0.tgz#ceaf083022fc46b4a35f69e13ef75aed0d639856"
   dependencies:
@@ -1449,7 +1552,7 @@ prop-types@^15.6.0:
     loose-envify "^1.3.1"
     object-assign "^4.1.1"
 
-protobufjs@^5.0.0, protobufjs@^5.0.2:
+protobufjs@^5.0.0:
   version "5.0.2"
   resolved "https://registry.yarnpkg.com/protobufjs/-/protobufjs-5.0.2.tgz#59748d7dcf03d2db22c13da9feb024e16ab80c91"
   dependencies:
@@ -1541,6 +1644,40 @@ react-dom@^16.2.0:
     object-assign "^4.1.1"
     prop-types "^15.6.0"
 
+react-router-dom@^4.2.2:
+  version "4.2.2"
+  resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-4.2.2.tgz#c8a81df3adc58bba8a76782e946cbd4eae649b8d"
+  dependencies:
+    history "^4.7.2"
+    invariant "^2.2.2"
+    loose-envify "^1.3.1"
+    prop-types "^15.5.4"
+    react-router "^4.2.0"
+    warning "^3.0.0"
+
+react-router@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/react-router/-/react-router-4.2.0.tgz#61f7b3e3770daeb24062dae3eedef1b054155986"
+  dependencies:
+    history "^4.7.2"
+    hoist-non-react-statics "^2.3.0"
+    invariant "^2.2.2"
+    loose-envify "^1.3.1"
+    path-to-regexp "^1.7.0"
+    prop-types "^15.5.4"
+    warning "^3.0.0"
+
+react-transition-group@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-2.2.1.tgz#e9fb677b79e6455fd391b03823afe84849df4a10"
+  dependencies:
+    chain-function "^1.0.0"
+    classnames "^2.2.5"
+    dom-helpers "^3.2.0"
+    loose-envify "^1.3.1"
+    prop-types "^15.5.8"
+    warning "^3.0.0"
+
 react@^16.2.0:
   version "16.2.0"
   resolved "https://registry.yarnpkg.com/react/-/react-16.2.0.tgz#a31bd2dab89bff65d42134fa187f24d054c273ba"
@@ -1625,7 +1762,11 @@ request@^2.72.0, request@^2.74.0, request@^2.79.0, request@^2.81.0, request@^2.8
     tunnel-agent "^0.6.0"
     uuid "^3.1.0"
 
-retry-request@^3.0.0:
+resolve-pathname@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/resolve-pathname/-/resolve-pathname-2.2.0.tgz#7e9ae21ed815fd63ab189adeee64dc831eefa879"
+
+retry-request@^3.0.0, retry-request@^3.3.1:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/retry-request/-/retry-request-3.3.1.tgz#fb71276235a617e97551e9be737ab5b91591fb9e"
   dependencies:
@@ -1882,6 +2023,10 @@ uuid@^3.0.0, uuid@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.1.0.tgz#3dd3d3e790abc24d7b0d3a034ffababe28ebbc04"
 
+value-equal@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/value-equal/-/value-equal-0.4.0.tgz#c5bdd2f54ee093c04839d71ce2e4758a6890abc7"
+
 vary@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
@@ -1893,6 +2038,12 @@ verror@1.10.0:
     assert-plus "^1.0.0"
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
+
+warning@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/warning/-/warning-3.0.0.tgz#32e5377cb572de4ab04753bdf8821c01ed605b7c"
+  dependencies:
+    loose-envify "^1.0.0"
 
 websocket-driver@>=0.5.1:
   version "0.7.0"
