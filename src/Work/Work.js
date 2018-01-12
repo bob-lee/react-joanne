@@ -1,7 +1,9 @@
 import withObserver from './withObserver'
 import Images from './Images'
-import './Work.css'
-import './intersection-observer'
+if (typeof window !== 'undefined') {
+  require('./intersection-observer')
+  require('./Work.css')
+}
 
 const ImagesWithObserver = withObserver(Images)
 

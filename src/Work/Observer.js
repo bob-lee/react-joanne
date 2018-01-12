@@ -14,7 +14,7 @@ export default class Observer extends React.Component {
     super(props)
 
     try {
-      this.intersectionObserver = new IntersectionObserver(entries => {
+      this.intersectionObserver = typeof window !== 'undefined' && new IntersectionObserver(entries => {
         const entry = entries[0]; // observe one element
         const currentRatio = this.intersectionRatio;
         const newRatio = entry.intersectionRatio;

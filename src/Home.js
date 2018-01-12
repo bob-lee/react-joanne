@@ -1,5 +1,7 @@
 import React from 'react'
-import './Home.css'
+if (typeof window !== 'undefined') {
+  require('./Home.css')
+}
 
 const Home = () => (
   <div className="home">

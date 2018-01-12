@@ -1,5 +1,7 @@
 import React from 'react'
-import './Loader.css'
+if (typeof window !== 'undefined') {
+  require('./Loader.css')
+}
 
 const Loader = (props) => {
   return (

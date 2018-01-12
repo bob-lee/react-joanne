@@ -1,3 +1,5 @@
+import fetch from 'isomorphic-fetch'
+
 const API = 'https://us-central1-joanne-lee.cloudfunctions.net/getUrls';
 
 export default function getUrls(path) {

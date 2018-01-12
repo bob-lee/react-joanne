@@ -1,8 +1,10 @@
 import React from 'react'
-import './Contact.css'
+if (typeof window !== 'undefined') {
+  require('./Contact.css')
+}
 
 const Contact = () => {
-  const isTouchDevice = window.matchMedia('(pointer:coarse)').matches
+  const isTouchDevice = typeof window !== 'undefined' && window.matchMedia('(pointer:coarse)').matches
   return (
     <div className="contact">
       <div className="content">

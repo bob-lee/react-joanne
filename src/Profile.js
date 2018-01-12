@@ -1,11 +1,13 @@
 import React from 'react'
-import './Profile.css'
+if (typeof window !== 'undefined') {
+  require('./Profile.css')
+}
 
 export default class Profile extends React.Component {
   state = { 
     style: {} 
   }
-  isTouchDevice = window.matchMedia('(pointer:coarse)').matches
+  isTouchDevice = typeof window !== 'undefined' && window.matchMedia('(pointer:coarse)').matches
 
   toggleState = (event) => { // only for touch device
     const isPaused = !this.state.style.animationPlayState || this.state.style.animationPlayState === 'paused' 
