@@ -7,7 +7,8 @@ if (typeof window !== 'undefined') {
   require('./index.css')
 }
 
-ReactDOM.hydrate((
+//ReactDOM.hydrate((
+ReactDOM.render((
   <Router>
     <App />
   </Router>

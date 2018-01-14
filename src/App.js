@@ -37,8 +37,13 @@ class App extends Component {
     console.info('setTitleWork', titleWork, frags)
   }
 
+  /*
+  <Route path="/work/:name" component={Work} />
+  <Route path="/work/:name" render={props => <Work urls={urls} {...props} />} />
+  */
   render() {
-    console.log('App props', this.props)
+    // const { urls, ...props } = this.props 
+    // console.log('App props', props, 'urls', urls && urls.length)
     return (
       <div className="App">
         <header className="App-header">
