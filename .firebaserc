@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "react-joanne"
+    "default": "react-joanne",
+    "ssr": "react-joanne"
   }
 }

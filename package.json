@@ -1,7 +1,7 @@
 {
   "name": "react-joanne",
   "author": "Bob Lee <bob.bumsuk.lee@gmail.com>",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "dependencies": {
     "enzyme": "^3.2.0",
@@ -19,11 +19,19 @@
     "build": "react-scripts build && yarn sw",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "sw": "node build-sw.js"
+    "sw": "node build-sw.js",
+    "clean:babel": "rm functions/index.js && rm -rf functions/src",
+    "babel": "node_modules/.bin/babel src -d functions/src && node_modules/.bin/babel index.js -d functions",
+    "build:ssr": "yarn build && yarn babel && move build\\index.html functions",
+    "serve": "node_modules/.bin/firebase serve --only functions,hosting"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "chai": "^4.1.2",
     "chai-enzyme": "beta",
-    "enzyme-to-json": "^3.3.0"
+    "enzyme-to-json": "^3.3.0",
+    "firebase-admin": "^5.8.0",
+    "firebase-functions": "^0.8.0",
+    "firebase-tools": "^3.16.0"
   }
 }

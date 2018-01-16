@@ -1,0 +1,14 @@
+{
+  "presets": [
+    "react"
+  ],
+  "plugins": [
+    "transform-class-properties",
+    "transform-object-rest-spread",
+    "transform-es2015-modules-commonjs"
+  ],
+  "ignore": [
+    "**/*.test.js",
+    "**/__mocks__"
+  ]
+}

@@ -12,3 +12,9 @@ The website was built and deployed using following technologies:
 
 [Visit the web!](https://react-joanne.firebaseapp.com)
 
+To build, run `yarn build:ssr` and `yarn serve` to test it on `localhost:5000` or `firebase deploy` to deploy on `firebase hosting` cloud.
+
+```
+// functions/index.html
+<div id="root"><!-- ::APP:: --></div>
+```

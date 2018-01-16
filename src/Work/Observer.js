@@ -14,7 +14,7 @@ export default class Observer extends React.Component {
     super(props)
 
     try {
-      this.intersectionObserver = new IntersectionObserver(entries => {
+      this.intersectionObserver = typeof window !== 'undefined' && new IntersectionObserver(entries => {
         const entry = entries[0]; // observe one element
         const currentRatio = this.intersectionRatio;
         const newRatio = entry.intersectionRatio;
@@ -76,17 +76,23 @@ export default class Observer extends React.Component {
 
   getUrls(path) {
     //this.unobserve()
-    return getUrls(path)
-      .then(items => {
-        const itemsWithToLoad = items.map((item, index) => (
-          { toLoad: index < 2, ...item }
-        ))
-        console.log('itemsWithToLoad:', itemsWithToLoad)
-        this._indexToObserve = 0
-        this.setState({ list: itemsWithToLoad })
+    if (window.SERVER_DATA) {
+      this.itemsWithToLoad(window.SERVER_DATA)
+      window.SERVER_DATA = null
+    } else {
+      getUrls(path).then(this.itemsWithToLoad)
+    }
+  }
 
-        //window.scrollTo(0, 0)
-      })
+  itemsWithToLoad = (items) => {
+    const itemsWithToLoad = items.map((item, index) => (
+      { toLoad: index < 2, ...item }
+    ))
+    console.log('itemsWithToLoad:', itemsWithToLoad)
+    this._indexToObserve = 0
+    this.setState({ list: itemsWithToLoad })
+
+    //window.scrollTo(0, 0)
   }
 
   componentWillUnmount() {
@@ -139,11 +145,11 @@ export default class Observer extends React.Component {
   render() {
     return (
       <div
-        //list={this.state.list}
-        //onImageLoaded={this.observe}
-        //{...props}
-        //{...this.props} 
-        />
+      //list={this.state.list}
+      //onImageLoaded={this.observe}
+      //{...props}
+      //{...this.props} 
+      />
     )
   }
 }
