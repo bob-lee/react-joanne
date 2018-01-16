@@ -80,7 +80,7 @@ export default class Observer extends React.Component {
       this.itemsWithToLoad(window.SERVER_DATA)
       window.SERVER_DATA = null
     } else {
-      getUrls(path).then(this.itemsWithToLoad)
+      return getUrls(path).then(this.itemsWithToLoad)
     }
   }
 
