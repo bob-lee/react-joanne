@@ -22,8 +22,8 @@
     "sw": "node build-sw.js",
     "clean:babel": "rm functions/index.js && rm -rf functions/src",
     "babel": "node_modules/.bin/babel src -d functions/src && node_modules/.bin/babel index.js -d functions",
-    "build:ssrr": "yarn build && yarn babel && copy build\\index.html functions && rm build\\index.html",
-    "build:ssr": "yarn build && yarn babel && mv build\\index.html functions",
+    "build:ssrr": "yarn build && yarn babel && move build\\index.html functions",
+    "build:ssr": "yarn build && yarn babel && mv build/index.html functions",
     "fns:deps": "cd functions && npm i",
     "serve": "node_modules/.bin/firebase serve --only functions,hosting"
   },
