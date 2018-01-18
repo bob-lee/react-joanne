@@ -88,7 +88,7 @@ export default class Observer extends React.Component {
     const itemsWithToLoad = items.map((item, index) => (
       { toLoad: index < 2, ...item }
     ))
-    console.log('itemsWithToLoad:', path, itemsWithToLoad.length)
+    console.log('itemsWithToLoad:', itemsWithToLoad.length)
     this._indexToObserve = 0
     this.setState({ list: itemsWithToLoad })
 
