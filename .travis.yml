@@ -4,7 +4,7 @@ node_js:
 install:
   - yarn 
   - yarn test
-  - yarn build:ssr
+  - CI=false yarn build:ssr
   - yarn fns:deps
 after_success:
   - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then bash ./deploy.sh; fi'
