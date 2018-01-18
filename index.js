@@ -15,7 +15,7 @@ const app = express();
 app.get('**', (req, res) => {
   const frags = req.url.split('/')
   const workPath = frags.length === 3 && frags[1] === 'work' ? frags[2] : ''
-  console.log(`url: '${req.url}', ${frags.length}, '${workPath}'`)
+  //console.log(`url: '${req.url}', ${frags.length}, '${workPath}'`)
 
   if (workPath) {
     getUrls(workPath).then(urls => {

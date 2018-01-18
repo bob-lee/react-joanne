@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+  - 7
+install:
+  - yarn 
+  - yarn test
+  - CI=false yarn build:ssr
+  - yarn fns:deps
+after_success:
+  - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then bash ./deploy.sh; fi'
+deploy:
+  provider: firebase
+  skip_cleanup: true
+  github_token: $github_token
+  project: "react-joanne"
