@@ -1,1 +1,1 @@
-node_modules/.bin/firebase deploy --non-interactive --token "$github_token" --project react-joanne
+node_modules/.bin/firebase deploy --non-interactive --token "$FIREBASE_TOKEN" --project react-joanne
