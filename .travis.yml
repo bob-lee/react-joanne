@@ -4,9 +4,10 @@ node_js:
 branches:
   only:
     - master
-install:
-  - yarn 
+before_script:
+  - yarn
   - yarn test
+script:
   - CI=false yarn build:ssr
   - yarn fns:deps
 after_success:
