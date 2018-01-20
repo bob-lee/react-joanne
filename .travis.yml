@@ -15,5 +15,6 @@ after_success:
 deploy:
   provider: firebase
   skip_cleanup: true
-  github_token: $github_token
+  token:
+    secure: "$FIREBASE_TOKEN"
   project: "react-joanne"
