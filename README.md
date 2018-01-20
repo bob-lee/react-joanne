@@ -15,6 +15,14 @@ The website was built and deployed using following technologies:
 To build, run `yarn build:ssr` and `yarn serve` to test it on `localhost:5000` or `firebase deploy` to deploy on `firebase hosting` cloud.
 
 ```
-// functions/index.html
-<div id="root"><!-- ::APP:: --></div>
+// to install dependencies
+yarn
+// to debug on localhost:3000
+yarn start
+// to run tests
+yarn test
+// to build for production
+yarn build:ssr
+// to test on localhost:5000 with production build
+yarn serve
 ```
