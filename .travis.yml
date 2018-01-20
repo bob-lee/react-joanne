@@ -1,13 +1,16 @@
 language: node_js
 node_js:
   - 7
+branches:
+  only:
+    - master
 install:
   - yarn 
   - yarn test
   - CI=false yarn build:ssr
   - yarn fns:deps
 after_success:
-  - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then bash ./deploy.sh; fi'
+  - node_modules/.bin/firebase deploy --non-interactive --token "$FIREBASE_TOKEN"
 deploy:
   provider: firebase
   skip_cleanup: true

@@ -58,7 +58,7 @@ it(`componentDidMount should have been called`, (done) => {
   const wrapper = shallow(<Observer {...props} />, { disableLifecycleMethods: false })
   setTimeout(_ => {
     const state = wrapper.state()
-    console.log('state:', state)
+    console.log(`state.list has ${state.list && state.list.length}`)
     expect(state.list.length).toBe(3)
     done()
   })
