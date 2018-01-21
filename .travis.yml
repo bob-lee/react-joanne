@@ -11,7 +11,7 @@ script:
   - CI=false yarn build:ssr
   - yarn fns:deps
 after_success:
-  - node_modules/.bin/firebase deploy --only hosting --non-interactive --token "$FIREBASE_TOKEN"
+  - node_modules/.bin/firebase deploy --only hosting --non-interactive --token "$FIREBASE_TOKEN" --project "react-joanne"
 deploy:
   provider: firebase
   skip_cleanup: true
