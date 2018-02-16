@@ -1,65 +1,81 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Images renders correctly 1`] = `
-<div
-  className="images"
->
-  <div>
-    <div
-      className="loader"
-      style={
-        Object {
-          "margin": "0 auto",
-        }
-      }
-    >
-      Loading...
-    </div>
-    <div
-      className="image"
-    >
-      <picture>
-        <img
-          alt="test1.jpg"
-          className="image1"
-          onLoad={[Function]}
-          src="/test1.jpg"
-        />
-      </picture>
+<div>
+  <div
+    className="images"
+  >
+    <div>
       <div
-        className="expand"
+        className="loader"
+        style={
+          Object {
+            "margin": "0 auto",
+          }
+        }
       >
-        <span>
-          test1
-        </span>
-        <img
-          alt="thumb"
-          className="image2"
-          src="/test1_thumb.jpg"
-        />
+        Loading...
+      </div>
+      <div
+        className="image"
+      >
+        <picture>
+          <img
+            alt="test1.jpg"
+            className="image1"
+            onLoad={[Function]}
+            src="/test1.jpg"
+          />
+        </picture>
+        <div
+          className="expand"
+        >
+          <span>
+            test1
+          </span>
+          <img
+            alt="thumb"
+            className="image2"
+            src="/test1_thumb.jpg"
+          />
+        </div>
+      </div>
+    </div>
+    <div>
+      <div
+        className="image"
+      >
+        <picture>
+          <img
+            alt="test2.jpg"
+            className="image1"
+            onLoad={[Function]}
+            src={undefined}
+          />
+        </picture>
+        <div
+          className="expand"
+        >
+          <span>
+            test2
+          </span>
+        </div>
       </div>
     </div>
   </div>
-  <div>
-    <div
-      className="image"
-    >
-      <picture>
-        <img
-          alt="test2.jpg"
-          className="image1"
-          onLoad={[Function]}
-          src={undefined}
-        />
-      </picture>
-      <div
-        className="expand"
-      >
-        <span>
-          test2
-        </span>
-      </div>
-    </div>
+  <div
+    className="back-to-top "
+    onClick={[Function]}
+  >
+    <i
+      aria-hidden="true"
+      className="fa fa-step-forward fa-lg"
+    />
+  </div>
+  <div
+    className="back-to-top test"
+  >
+    0
   </div>
 </div>
 `;
@@ -86,85 +102,101 @@ exports[`Images renders correctly after first image loaded 1`] = `
   }
   onImageLoaded={[Function]}
 >
-  <div
-    className="images"
-  >
-    <Image
-      index={0}
-      item={
-        Object {
-          "fileName": "test1.jpg",
-          "text": "test1",
-          "thumbUrl": "/test1_thumb.jpg",
-          "toLoad": true,
-          "url": "/test1.jpg",
-        }
-      }
-      key="test1.jpg"
-      onImageLoaded={[Function]}
+  <div>
+    <div
+      className="images"
     >
-      <div>
-        <div
-          className="image show"
-        >
-          <picture>
-            <img
-              alt="test1.jpg"
-              className="image1"
-              onLoad={[Function]}
-              src="/test1.jpg"
-            />
-          </picture>
+      <Image
+        index={0}
+        item={
+          Object {
+            "fileName": "test1.jpg",
+            "text": "test1",
+            "thumbUrl": "/test1_thumb.jpg",
+            "toLoad": true,
+            "url": "/test1.jpg",
+          }
+        }
+        key="test1.jpg"
+        onImageLoaded={[Function]}
+      >
+        <div>
           <div
-            className="expand"
+            className="image show"
           >
-            <span>
-              test1
-            </span>
-            <img
-              alt="thumb"
-              className="image2"
-              src="/test1_thumb.jpg"
-            />
+            <picture>
+              <img
+                alt="test1.jpg"
+                className="image1"
+                onLoad={[Function]}
+                src="/test1.jpg"
+              />
+            </picture>
+            <div
+              className="expand"
+            >
+              <span>
+                test1
+              </span>
+              <img
+                alt="thumb"
+                className="image2"
+                src="/test1_thumb.jpg"
+              />
+            </div>
           </div>
         </div>
-      </div>
-    </Image>
-    <Image
-      index={1}
-      item={
-        Object {
-          "fileName": "test2.jpg",
-          "text": "test2",
-          "thumbUrl": "/test2_thumb.jpg",
-          "toLoad": false,
-          "url": "/test2.jpg",
+      </Image>
+      <Image
+        index={1}
+        item={
+          Object {
+            "fileName": "test2.jpg",
+            "text": "test2",
+            "thumbUrl": "/test2_thumb.jpg",
+            "toLoad": false,
+            "url": "/test2.jpg",
+          }
         }
-      }
-      key="test2.jpg"
-      onImageLoaded={[Function]}
-    >
-      <div>
-        <div
-          className="image"
-        >
-          <picture>
-            <img
-              alt="test2.jpg"
-              className="image1"
-              onLoad={[Function]}
-            />
-          </picture>
+        key="test2.jpg"
+        onImageLoaded={[Function]}
+      >
+        <div>
           <div
-            className="expand"
+            className="image"
           >
-            <span>
-              test2
-            </span>
+            <picture>
+              <img
+                alt="test2.jpg"
+                className="image1"
+                onLoad={[Function]}
+              />
+            </picture>
+            <div
+              className="expand"
+            >
+              <span>
+                test2
+              </span>
+            </div>
           </div>
         </div>
-      </div>
-    </Image>
+      </Image>
+    </div>
+    <div
+      className="back-to-top "
+      onClick={[Function]}
+    >
+      <i
+        aria-hidden="true"
+        className="fa fa-step-forward fa-lg"
+      />
+    </div>
+    <div
+      className="back-to-top test"
+    >
+      0
+    </div>
   </div>
 </Images>
 `;

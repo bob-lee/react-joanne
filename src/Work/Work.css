@@ -23,10 +23,6 @@
   opacity: 1;
 }
 
-.image-pair {
-  position: relative;
-}
-
 .image1 {
   width: 100%;
 }
@@ -69,4 +65,40 @@ and (min-width: 640px) {
   height: 80px;
   width: 80px;
   border-radius: 50%;
+}
+
+.back-to-top {
+  position: fixed;
+  bottom: 1.5em;
+  left: 1em;
+  height: 60px;
+  width: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background: white;
+  transform: rotate(-90deg);
+  opacity: 0;
+  visibility: hidden;
+  transition: visibility 1.0s linear, opacity 1.0s linear;
+}
+.back-to-top:hover {
+  cursor: pointer;
+}
+.back-to-top.show {
+  visibility: visible;
+  opacity: 0.3;
+}
+/* @supports not (-webkit-overflow-scrolling: touch) {
+  .back-to-top.show {
+    visibility: visible;
+  }
+} */
+.back-to-top.test {
+  position: fixed;
+  bottom: 6em;
+  transform: rotate(0);
+  /* visibility: visible; */
+  opacity: 0.3;
 }
