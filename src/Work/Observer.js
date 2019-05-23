@@ -85,7 +85,7 @@ export default class Observer extends React.Component {
   }
 
   itemsWithToLoad = (items) => {
-    const itemsWithToLoad = items.map((item, index) => (
+    const itemsWithToLoad = items.reverse().map((item, index) => (
       { toLoad: index < 2, ...item }
     ))
     console.log('itemsWithToLoad:', itemsWithToLoad.length)

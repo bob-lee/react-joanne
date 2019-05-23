@@ -5,7 +5,8 @@ const API = 'https://us-central1-joanne-lee.cloudfunctions.net/getUrls';
 export default function getUrls(path) {
   /* on free Spark plan, cloud function doesn't seem to allow external call,
      so for now, returns from a static json object.
-
+     Really?
+  */
   return fetch(`${API}/${path}`)
     .then(response => {
       console.log(response)
@@ -18,10 +19,11 @@ export default function getUrls(path) {
     .catch(error => {
       throw new Error('getUrls error: ' + error)
     })
-  */
+  /*
   const response = work[path]
   console.log(`returning ${response.length} urls`)
   return Promise.resolve(response);
+  */
 }
 
 // temporary static json object that holds current set of urls on database

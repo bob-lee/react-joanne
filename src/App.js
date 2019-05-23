@@ -74,7 +74,7 @@ class App extends Component {
         </TransitionGroup>
 
         <footer>
-          Copyright © 2017 Joanne Lee
+          Copyright © 2019 Joanne Lee
         </footer>
       </div >
     )
