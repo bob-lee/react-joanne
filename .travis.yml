@@ -10,9 +10,9 @@ branches:
 #  - yarn fns:deps
 #after_success:
 #  - node_modules/.bin/firebase deploy --non-interactive --token "$FIREBASE_TOKEN" --project react-joanne
-deploy:
-  provider: firebase
-  skip_cleanup: true
-  token:
-    secure: "$FIREBASE_TOKEN"
-  project: "react-joanne"
+#deploy:
+#  provider: firebase
+#  skip_cleanup: true
+#  token:
+#    secure: "$FIREBASE_TOKEN"
+#  project: "react-joanne"
