@@ -30,10 +30,10 @@ export default class Observer extends React.Component {
           const i = this.indexToObserve + INTERSECT_PAGESIZE;
           this.unobserve();
           this.indexToObserve = i; // set next index and load two more images
-          console.info(currentRatio + ' -> ' + newRatio + ' [' + i + ']');
+          //console.info(currentRatio + ' -> ' + newRatio + ' [' + i + ']');
         }
 
-        console.log(entry);
+        //console.log(entry);
       }, { threshold: [0, 0.25, 0.5, 0.75, 1] });
     } catch (e) {
       console.error('failed to create IntersectionObserver:', e);
@@ -117,7 +117,7 @@ export default class Observer extends React.Component {
   }
 
   observe = me => {
-    console.log(me)
+    //console.log(me)
     if (!me || !me.element || me.index === undefined) {
       console.warn(`observe() invalid input: ${me}`);
       return;
@@ -126,9 +126,9 @@ export default class Observer extends React.Component {
     if (me.index === this.indexToObserve) {
       this.elementToObserve = me.element;
       this.intersectionObserver.observe(me.element);
-      console.info(`elementToObserve = ${me.index}`);
+      //console.info(`elementToObserve = ${me.index}`);
     } else {
-      console.log(`observe(${me.index} !== ${this.indexToObserve})`);
+      //console.log(`observe(${me.index} !== ${this.indexToObserve})`);
     }
   }
 
@@ -136,7 +136,7 @@ export default class Observer extends React.Component {
     if (this.elementToObserve) {
       this.intersectionObserver.unobserve(this.elementToObserve);
       this.intersectionRatio = undefined;
-      console.info(`unobserve [${this.indexToObserve}]`);
+      //console.info(`unobserve [${this.indexToObserve}]`);
     } else {
       console.log(`null elementToObserve`);
     }

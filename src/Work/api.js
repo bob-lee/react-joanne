@@ -27,6 +27,7 @@ export default function getUrls(path) {
 }
 
 // temporary static json object that holds current set of urls on database
+/*
 const work = {
   "portrait": [
     {
@@ -307,3 +308,4 @@ const work = {
     }
   ]
 }
+*/

@@ -13,7 +13,7 @@
     "react-scroll": "^1.7.6",
     "react-test-renderer": "^16.2.0",
     "react-transition-group": "^2.2.1",
-    "workbox-build": "^2.1.2"
+    "workbox-build": "^4.3.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -25,16 +25,17 @@
     "babel": "node_modules/.bin/babel src -d functions/src && node_modules/.bin/babel index.js -d functions",
     "build:ssrr": "yarn build && yarn babel && move build\\index.html functions",
     "build:ssr": "yarn build && yarn babel && mv build/index.html functions",
-    "fns:deps": "cd functions && npm i && cd -",
-    "serve": "node_modules/.bin/firebase serve --only functions,hosting"
+    "fns:deps": "cd functions && yarn && cd -",
+    "serve": "node_modules/.bin/firebase serve"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "chai": "^4.1.2",
     "chai-enzyme": "beta",
     "enzyme-to-json": "^3.3.0",
-    "firebase-admin": "^5.8.0",
-    "firebase-functions": "^0.8.0",
-    "firebase-tools": "^3.16.0"
+    "firebase-admin": "^7.2.0",
+    "firebase-functions": "^2.2.1",
+    "firebase-functions-test": "^0.1.6",
+    "firebase-tools": "^6.10.0"
   }
 }

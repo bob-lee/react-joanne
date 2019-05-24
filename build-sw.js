@@ -1,6 +1,7 @@
 const fs = require('fs-extra')
 const pathmodule = require('path')
 const workbox = require('workbox-build')
+const outputPath = 'build'
 
 function build() {
   const cwd = process.cwd();
@@ -8,20 +9,20 @@ function build() {
   const pkg = require(pkgPath);
   const readPath = `${cwd}/node_modules/workbox-sw/${pkg.main}`;
   let data = fs.readFileSync(readPath, 'utf8');
-  let path = `${cwd}/build/workbox-sw.js`;
+  let path = `${cwd}/${outputPath}/workbox-sw.js`;
   console.log(`Writing ${path}.`);
   fs.writeFileSync(path, data, 'utf8');
   data = fs.readFileSync(`${readPath}.map`, 'utf8');
-  path = `${cwd}/build/${pathmodule.basename(pkg.main)}.map`;
+  path = `${cwd}/${outputPath}/${pathmodule.basename(pkg.main)}.map`;
   console.log(`Writing ${path}.`);
   fs.writeFileSync(path, data, 'utf8');
 
   workbox.injectManifest({
-    globDirectory: './build/',
+    globDirectory: `./${outputPath}/`,
     globPatterns: ['**\/*.{html,js,css,png,jpg,json}'],
     globIgnores: ['sw-default.js', 'service-worker.js', 'workbox-sw.js', 'index.html'],
     swSrc: './src/sw-template.js',
-    swDest: './build/sw-default.js',
+    swDest: `./${outputPath}/sw-default.js`,
   }).then(_ => {
     console.log('Service worker generated.')
   })
