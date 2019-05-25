@@ -10,7 +10,6 @@ exports[`Image renders correctly with toLoad=false 1`] = `
         alt="test.jpg"
         className="image1"
         onLoad={[Function]}
-        src={undefined}
       />
     </picture>
     <div

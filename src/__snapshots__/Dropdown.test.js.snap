@@ -27,21 +27,18 @@ exports[`should have 'active' class for '/work/painting' page 1`] = `
   >
     <NavLink
       activeClassName="active"
-      ariaCurrent="true"
       to="/work/portrait"
     >
       portrait
     </NavLink>
     <NavLink
       activeClassName="active"
-      ariaCurrent="true"
       to="/work/painting"
     >
       painting
     </NavLink>
     <NavLink
       activeClassName="active"
-      ariaCurrent="true"
       to="/work/illustration"
     >
       illustration
@@ -81,21 +78,18 @@ exports[`shouldn't have 'active' class for non-work page 1`] = `
   >
     <NavLink
       activeClassName="active"
-      ariaCurrent="true"
       to="/work/portrait"
     >
       portrait
     </NavLink>
     <NavLink
       activeClassName="active"
-      ariaCurrent="true"
       to="/work/painting"
     >
       painting
     </NavLink>
     <NavLink
       activeClassName="active"
-      ariaCurrent="true"
       to="/work/illustration"
     >
       illustration
