@@ -50,7 +50,6 @@ exports[`Images renders correctly 1`] = `
             alt="test2.jpg"
             className="image1"
             onLoad={[Function]}
-            src={undefined}
           />
         </picture>
         <div
@@ -100,7 +99,28 @@ exports[`Images renders correctly after first image loaded 1`] = `
       },
     ]
   }
-  onImageLoaded={[Function]}
+  onImageLoaded={
+    [MockFunction] {
+      "calls": Array [
+        Array [
+          Object {
+            "element": <img
+              alt="test1.jpg"
+              class="image1"
+              src="/test1.jpg"
+            />,
+            "index": 0,
+          },
+        ],
+      ],
+      "results": Array [
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+      ],
+    }
+  }
 >
   <div>
     <div
@@ -118,7 +138,28 @@ exports[`Images renders correctly after first image loaded 1`] = `
           }
         }
         key="test1.jpg"
-        onImageLoaded={[Function]}
+        onImageLoaded={
+          [MockFunction] {
+            "calls": Array [
+              Array [
+                Object {
+                  "element": <img
+                    alt="test1.jpg"
+                    class="image1"
+                    src="/test1.jpg"
+                  />,
+                  "index": 0,
+                },
+              ],
+            ],
+            "results": Array [
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+            ],
+          }
+        }
       >
         <div>
           <div
@@ -159,7 +200,28 @@ exports[`Images renders correctly after first image loaded 1`] = `
           }
         }
         key="test2.jpg"
-        onImageLoaded={[Function]}
+        onImageLoaded={
+          [MockFunction] {
+            "calls": Array [
+              Array [
+                Object {
+                  "element": <img
+                    alt="test1.jpg"
+                    class="image1"
+                    src="/test1.jpg"
+                  />,
+                  "index": 0,
+                },
+              ],
+            ],
+            "results": Array [
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+            ],
+          }
+        }
       >
         <div>
           <div
