@@ -10,9 +10,9 @@
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.1",
-    "react-scroll": "^1.7.6",
-    "react-test-renderer": "^16.2.0",
-    "react-transition-group": "^2.2.1",
+    "react-scroll": "^1.7.11",
+    "react-test-renderer": "^16.8.6",
+    "react-transition-group": "^4.0.1",
     "workbox-build": "^4.3.1"
   },
   "scripts": {
@@ -31,9 +31,9 @@
   "devDependencies": {
     "@babel/cli": "^7.4.4",
     "@babel/plugin-proposal-class-properties": "^7.4.4",
-    "chai": "^4.1.2",
-    "chai-enzyme": "beta",
-    "enzyme-to-json": "^3.3.0",
+    "chai": "^4.2.0",
+    "chai-enzyme": "^1.0.0-beta.1",
+    "enzyme-to-json": "^3.3.5",
     "firebase-admin": "^7.2.0",
     "firebase-functions": "^2.2.1",
     "firebase-functions-test": "^0.1.6",
