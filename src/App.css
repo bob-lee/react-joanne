@@ -36,8 +36,9 @@ header {
 }
 
 header * {
-  /*color: rgb(240, 149, 165);*/
-  color: #C23B22;
+  /*color: rgb(240, 149, 165);*//* contrast ratio 2.20 */
+  /*color: #C23B22;*//* contrast ratio 5.33 */
+  color: rgb(200, 100, 190); /* contrast ratio 3.49, Joanne's pick */
 }
 
 .header-title {
