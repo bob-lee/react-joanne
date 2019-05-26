@@ -1,6 +1,6 @@
 # Joanne Lee
 
-This is Joanne's website, shows images of her works. Images are dynamically served from `Firebase storage` and lazily loaded using `IntersectionObserver` API.
+This is Joanne's website, shows her works. Images are dynamically served from `Firebase storage` and lazily loaded using `IntersectionObserver` API. All resources are cached by `workbox` service worker that makes the web faster on next visit and even when user lost the internet. Also the web will be server-side-rendered to make it faster and easier to be found by search engines.
 
 <img src="Joanne-home.PNG" width="60%">
 
