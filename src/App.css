@@ -36,7 +36,8 @@ header {
 }
 
 header * {
-  color: rgb(240, 149, 165);
+  /*color: rgb(240, 149, 165);*/
+  color: #C23B22;
 }
 
 .header-title {
