@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch'
 
-const API = 'https://us-central1-joanne-lee.cloudfunctions.net/getUrls';
+const API = 'https://us-central1-joanne-lee.cloudfunctions.net/getUrlsOrdered';
 
 export default function getUrls(path) {
   /* on free Spark plan, cloud function doesn't seem to allow external call,
