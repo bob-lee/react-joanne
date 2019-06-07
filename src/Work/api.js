@@ -12,6 +12,7 @@ export default function getUrls(path) {
       }
     })
     .catch(error => {
+      console.error('getUrls:', error)
       throw new Error('getUrls error: ' + error)
     })
 }
