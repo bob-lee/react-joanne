@@ -22,7 +22,7 @@ workbox.routing.registerRoute(/https:\/\/fonts.gstatic.com\/.*/, webFontHandler)
 workbox.routing.registerRoute(/https:\/\/use.fontawesome.com\/.*/, webFontHandler);
 
 // get-urls-cache
-const API = /https:\/\/us-central1-joanne-lee.cloudfunctions.net\/getUrls\/.*/;
+const API = /https:\/\/us-central1-joanne-lee.cloudfunctions.net\/getUrlsOrdered\/.*/;
 const apiHandler = new workbox.strategies.NetworkFirst({
   cacheName: 'get-urls-cache'
 });
