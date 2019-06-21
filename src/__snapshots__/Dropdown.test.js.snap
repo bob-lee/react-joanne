@@ -53,7 +53,7 @@ exports[`should have 'active' class for '/work/painting' page 1`] = `
 
 exports[`shouldn't have 'active' class for non-work page 1`] = `
 <div
-  className="ddm "
+  className="ddm"
   to="/work"
 >
   <input

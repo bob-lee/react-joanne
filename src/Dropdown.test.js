@@ -1,30 +1,84 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { act } from 'react-dom/test-utils'
 import { BrowserRouter as Router } from 'react-router-dom'
-import renderer from 'react-test-renderer'
 import toJson from 'enzyme-to-json'
 import { shallow } from 'enzyme'
 import Dropdown from './Dropdown'
 
-const renderWithTitle = (title) => {
-  return renderer
-    .create(<Router><Dropdown title={title} /></Router>)
-    .toJSON()
+let container
+
+beforeEach(() => {
+  container = document.createElement('div')
+  document.body.appendChild(container)
+})
+
+afterEach(() => {
+  document.body.removeChild(container)
+  container = null
+})
+
+function firstRender() {
+  act(() => {
+    ReactDOM.render(<Router><Dropdown title="work" /></Router>, container)
+  })
 }
 
 it('Dropdown renders without crashing', () => {
-  const div = document.createElement('div')
-  ReactDOM.render(<Router><Dropdown title="work" /></Router>, div)
-})
-/*
-it('Dropdown renders correctly for non-work page', () => {
-  expect(renderWithTitle('work')).toMatchSnapshot()
+  firstRender()
 })
 
-it(`Dropdown renders correctly for '/work/painting' page`, () => {
-  expect(renderWithTitle('painting')).toMatchSnapshot()
+it(`Dropdown initially should be unchecked`, () => {
+  firstRender()
+
+  const input = container.querySelector('input')
+  expect(input.checked).toBe(false)
+  //const label = container.querySelector('label')
+  //expect(label.textContent).toBe('work')
 })
-*/
+
+it(`Dropdown should be checked on label-click`, () => {
+  firstRender()
+
+  const input = container.querySelector('input')
+  act(() => {
+    input.dispatchEvent(new MouseEvent('click', {bubbles: true}))
+  })
+  expect(input.checked).toBe(true)
+})
+
+it(`Dropdown should be unchecked on submenu-click`, () => {
+  firstRender()
+
+  const input = container.querySelector('input')
+  act(() => {
+    input.dispatchEvent(new MouseEvent('click', {bubbles: true}))
+  })
+  expect(input.checked).toBe(true)
+
+  const submenu = container.querySelector('.dd')
+  act(() => {
+    submenu.dispatchEvent(new MouseEvent('click', {bubbles: true}))
+  })
+  expect(input.checked).toBe(false)
+})
+
+it(`Dropdown should be unchecked on overlay-click`, () => {
+  firstRender()
+
+  const input = container.querySelector('input')
+  act(() => {
+    input.dispatchEvent(new MouseEvent('click', {bubbles: true}))
+  })
+  expect(input.checked).toBe(true)
+
+  const overlay = container.querySelector('.overlay')
+  act(() => {
+    overlay.dispatchEvent(new MouseEvent('click', {bubbles: true}))
+  })
+  expect(input.checked).toBe(false)
+})
+
 it(`shouldn't have 'active' class for non-work page`, () => {
   const wrapper = shallow(<Dropdown title="work" />)
   //console.log(wrapper.props())
@@ -40,29 +94,4 @@ it(`should have 'active' class for '/work/painting' page`, () => {
 
   expect(wrapper.props().className).toMatch(/active/)
   expect(toJson(wrapper)).toMatchSnapshot()
-})
-
-it(`initially should be unchecked`, () => {
-  const wrapper = shallow(<Dropdown title="work" />)
-  expect(wrapper.state().checked).toBe(false)
-})
-
-it(`should be checked on label-click`, () => {
-  const wrapper = shallow(<Dropdown title="work" />)
-  wrapper.find('input').simulate('change')
-  expect(wrapper.state().checked).toBe(true)
-})
-
-it(`should be unchecked on submenu-click`, () => {
-  const wrapper = shallow(<Dropdown title="work" />)
-  //wrapper.find('input').simulate('change')
-  wrapper.find('.dd').simulate('click')
-  expect(wrapper.state().checked).toBe(false)
-})
-
-it(`should be unchecked on overlay-click`, () => {
-  const wrapper = shallow(<Dropdown title="work" />)
-  //wrapper.find('input').simulate('change')
-  wrapper.find('.overlay').simulate('click')
-  expect(wrapper.state().checked).toBe(false)
 })

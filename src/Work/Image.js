@@ -1,54 +1,47 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Loader from './Loader'
 
-export default class Image extends React.Component {
-  state = { loaded: false }
+const Image = (props) => {
+  const [loaded, setLoaded] = useState(false)
 
-  loaded = () => {
-    //console.log('loaded')
-    this.setState({ loaded: true })
-    this.props.onImageLoaded({
-      element: this.imgElement,
-      index: this.props.index
+  let imgElement = null
+  const handleLoad = (e) => {
+    setLoaded(true)
+    props.onImageLoaded({
+      element: imgElement,
+      index: props.index
     })
   }
 
-  render() {
-    const item = this.props.item
-    let classes = 'image'
-    if (this.state.loaded) {
-      classes += ' show'
-    } 
-    
-    const style = { margin: '0 auto' }
-    const loading = (item.toLoad && !this.state.loaded) ? <Loader style={style} /> : null
+  const item = props.item
+  const classes = loaded ? 'image show' : 'image'
+  
+  const style = { margin: '0 auto' }
+  const loading = (item.toLoad && !loaded) ? <Loader style={style} /> : null
 
-    let thumbImage = null
-    const thumbUrl = item.toLoad && item.thumbUrl
-    if (thumbUrl) {
-      thumbImage = <img src={thumbUrl}
-        className="image2"
-        alt="thumb" />
-    }
+  const thumbUrl = item.toLoad && item.thumbUrl
+  const thumbImage = thumbUrl ? <img src={thumbUrl} className="image2" alt="thumb" /> : null
 
-    return (
-      <div>
-        {loading}
-        <div className={classes}>
-          <picture>
-            <img src={item.toLoad ? item.url : undefined}
-              onLoad={this.loaded}
-              className="image1"
-              ref={(el) => { this.imgElement = el; }}
-              alt={item.fileName} />
-          </picture>
+  return (
+    <div>
+      {loading}
+      <div className={classes}>
+        <picture>
+          <img src={item.toLoad ? item.url : undefined}
+            onLoad={handleLoad}
+            className="image1"
+            ref={(el) => { imgElement = el; }}
+            title="image"
+            alt={item.fileName} />
+        </picture>
 
-          <div className="expand">
-            <span>{item.text}</span>
-            {thumbImage}
-          </div>
+        <div className="expand">
+          <span>{item.text}</span>
+          {thumbImage}
         </div>
       </div>
-    )
-  }
+    </div>
+  )
 }
+
+export default Image

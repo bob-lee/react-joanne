@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Image from './Image'
 
 const isWindow = typeof window !== 'undefined'
@@ -6,67 +6,64 @@ if (isWindow) {
   var scroll = require('react-scroll').animateScroll
 }
 
-class Images extends React.Component {
-  state = { showIcon: false }
-  lastY = 0
-  ticking = false
+const Images = (props) => {
+  const [showIcon, lastY] = useScroll()
 
-  scrollToTop = () => scroll.scrollToTop()
-  currentPositionY = () => window.pageYOffset
+  const scrollToTop = () => scroll.scrollToTop()
+  const { list, ...propsButList } = props
+  const classes = showIcon ? 'back-to-top show' : 'back-to-top'
+  const info = Math.ceil(lastY)
 
-  updateLastY() {
-    const newY = this.currentPositionY()
-    if (newY !== this.lastY) {
-      this.lastY = newY
-      this.setState({
-        showIcon: isWindow && this.lastY > 500
-      })
-      //console.log('updateLastY', Math.ceil(newY))
-    }
-  }
-
-  handleScroll = (e) => {
-    if(!this.ticking) {
-      window.requestAnimationFrame(() => {
-        this.updateLastY()
-        this.ticking = false
-      })
-      this.ticking = true
-    }
-  }
-
-  componentDidMount() {
-    isWindow && window.addEventListener('scroll', this.handleScroll)
-  }
-
-  componentWillUnmount() {
-    isWindow && window.removeEventListener('scroll', this.handleScroll)
-  }
-
-  render() {
-    const { list, ...propsButList } = this.props
-    const classes = `back-to-top ${this.state.showIcon ? 'show' : ''}`
-    const info = Math.ceil(this.lastY)
-
-    return (
-      <div>
-        <div className="images">
-          {list.map((item, index) =>
-            <Image key={item.fileName}
-              item={item}
-              index={index}
-              {...propsButList} />
-          )}
-        </div>
-        <div className={classes} onClick={this.scrollToTop}>
-          <i className="fa fa-step-forward fa-lg" aria-hidden="true"></i>
-        </div>
-        <div className="back-to-top test">
-          {info}
-        </div>
+  return (
+    <div>
+      <div className="images">
+        {list.map((item, index) =>
+          <Image key={item.fileName}
+            item={item}
+            index={index}
+            {...propsButList} />
+        )}
       </div>
-    )
-  }
+      <div className={classes} onClick={scrollToTop}>
+        <i className="fa fa-step-forward fa-lg" aria-hidden="true"></i>
+      </div>
+      <div className="back-to-top test">
+        {info}
+      </div>
+    </div>
+  )
 }
 
 export default Images
+
+function useScroll() {
+  const [showIcon, setShowIcon] = useState(false)
+  const [lastY, setLastY] = useState(0)
+  const [ticking, setTicking] = useState(false)
+
+  useEffect(() => {
+    console.log('addEventListener')
+    const currentPositionY = () => window.pageYOffset
+    const updateLastY = () => {
+      const newY = currentPositionY()
+      if (newY !== lastY) {
+        setLastY(newY)
+        setShowIcon(isWindow && newY > 500)
+      }
+    }
+    const handleScroll = (e) => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          updateLastY()
+          setTicking(false)
+        })
+        setTicking(true)
+      }
+    }
+
+    isWindow && window.addEventListener('scroll', handleScroll)
+    return () => { console.log('removeEventListener'); isWindow && window.removeEventListener('scroll', handleScroll) }
+  }, [])
+
+  return [showIcon, lastY]
+}
