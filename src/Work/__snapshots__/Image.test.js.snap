@@ -10,6 +10,7 @@ exports[`Image renders correctly with toLoad=false 1`] = `
         alt="test.jpg"
         className="image1"
         onLoad={[Function]}
+        title="image"
       />
     </picture>
     <div
@@ -44,6 +45,7 @@ exports[`Image renders correctly with toLoad=true 1`] = `
         className="image1"
         onLoad={[Function]}
         src="/test.jpg"
+        title="image"
       />
     </picture>
     <div
@@ -73,6 +75,7 @@ exports[`onImageLoaded should be called on 'load' event 1`] = `
         className="image1"
         onLoad={[Function]}
         src="/test.jpg"
+        title="image"
       />
     </picture>
     <div

@@ -25,6 +25,7 @@ exports[`Images renders correctly 1`] = `
             className="image1"
             onLoad={[Function]}
             src="/test1.jpg"
+            title="image"
           />
         </picture>
         <div
@@ -50,6 +51,7 @@ exports[`Images renders correctly 1`] = `
             alt="test2.jpg"
             className="image1"
             onLoad={[Function]}
+            title="image"
           />
         </picture>
         <div
@@ -63,7 +65,7 @@ exports[`Images renders correctly 1`] = `
     </div>
   </div>
   <div
-    className="back-to-top "
+    className="back-to-top"
     onClick={[Function]}
   >
     <i
@@ -108,6 +110,7 @@ exports[`Images renders correctly after first image loaded 1`] = `
               alt="test1.jpg"
               class="image1"
               src="/test1.jpg"
+              title="image"
             />,
             "index": 0,
           },
@@ -147,6 +150,7 @@ exports[`Images renders correctly after first image loaded 1`] = `
                     alt="test1.jpg"
                     class="image1"
                     src="/test1.jpg"
+                    title="image"
                   />,
                   "index": 0,
                 },
@@ -171,6 +175,7 @@ exports[`Images renders correctly after first image loaded 1`] = `
                 className="image1"
                 onLoad={[Function]}
                 src="/test1.jpg"
+                title="image"
               />
             </picture>
             <div
@@ -209,6 +214,7 @@ exports[`Images renders correctly after first image loaded 1`] = `
                     alt="test1.jpg"
                     class="image1"
                     src="/test1.jpg"
+                    title="image"
                   />,
                   "index": 0,
                 },
@@ -232,6 +238,7 @@ exports[`Images renders correctly after first image loaded 1`] = `
                 alt="test2.jpg"
                 className="image1"
                 onLoad={[Function]}
+                title="image"
               />
             </picture>
             <div
@@ -246,7 +253,7 @@ exports[`Images renders correctly after first image loaded 1`] = `
       </Image>
     </div>
     <div
-      className="back-to-top "
+      className="back-to-top"
       onClick={[Function]}
     >
       <i

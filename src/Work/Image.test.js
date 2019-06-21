@@ -43,11 +43,12 @@ it('Image renders correctly with toLoad=false', () => {
 it(`onImageLoaded should be called on 'load' event`, () => {
   const props = getProps(true)
   const wrapper = shallow(<Image {...props} />)
-  expect(wrapper.state().loaded).toBe(false)
+  expect(wrapper.exists()).toBe(true)
+  expect(props.onImageLoaded.mock.calls.length).toBe(0)
   wrapper.find('img.image1').simulate('load')
-  console.log('mock.calls', props.onImageLoaded.mock.calls)
-  expect(wrapper.state().loaded).toBe(true)
-  expect(props.onImageLoaded.mock.calls.length).toBe(1)
-  expect(props.onImageLoaded.mock.calls[0][0]).toEqual({element: undefined, index: props.index})
+  const calls = props.onImageLoaded.mock.calls
+  console.log(calls[0])
+  expect(calls.length).toBe(1)
+  expect(calls[0][0]).toEqual({element: null, index: props.index})
   expect(toJson(wrapper)).toMatchSnapshot()
 })
