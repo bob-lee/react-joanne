@@ -26,6 +26,7 @@ const Image = (props) => {
     <div>
       {loading}
       <div className={classes}>
+        <a href={'#' + item.fileName} aria-hidden="true" className="anchor">
         <picture>
           <img src={item.toLoad ? item.url : undefined}
             onLoad={handleLoad}
@@ -34,6 +35,7 @@ const Image = (props) => {
             title="image"
             alt={item.fileName} />
         </picture>
+        </a>
 
         <div className="expand">
           <span>{item.text}</span>

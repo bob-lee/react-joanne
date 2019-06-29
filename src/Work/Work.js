@@ -8,7 +8,7 @@ if (typeof window !== 'undefined') {
 }
 
 const Work = (props) => {
-  const list = useObserver(props.match.params.name)
+  const list = useObserver(props/*.match.params.name*/)
 
   return (
     <Images {...list} {...props} />
@@ -19,7 +19,7 @@ export default Work;
 
 const INTERSECT_PAGESIZE = 2
 
-function useObserver(path) {
+function useObserver(props) {
   const [list, setList] = useState([])
   const [intersectionRatio, setIntersectionRatio] = useState(null) // 1: fully shown, 0.5: half shown, ..
   const [elementToObserve, setElementToObserve] = useState(null) // img tag being observed
@@ -40,24 +40,29 @@ function useObserver(path) {
     intersectionObserverRef.current = intersectionObserver
   })
 
+  const { location, match } = props
+  const path = match.params.name
+  const hash = location.hash && location.hash.slice(1)
+
   useEffect(() => {
     const handleIntersection = (entries) => {
       const entry = entries[0] // observe one element
       const currentRatio = intersectionRatioRef.current
       const newRatio = entry.intersectionRatio
       const boundingClientRect = entry.boundingClientRect
-      const scrollingDown = currentRatio !== undefined && newRatio < currentRatio &&
-        boundingClientRect.bottom < boundingClientRect.height
+      const scrolling = currentRatio !== undefined && newRatio < currentRatio
+      const scrollingDown = scrolling && boundingClientRect.bottom < boundingClientRect.height
+      const scrollingUp = scrolling && boundingClientRect.bottom > boundingClientRect.height
 
       setIntersectionRatio(newRatio)
 
-      //console.log('handleIntersection', listRef.current.length, scrollingDown, currentRatio, newRatio)
-      if (scrollingDown) {
+      console.log(`handleIntersection ${scrollingDown ? 'v' : scrollingUp ? '^' : '-'} ratio:${roundUp(currentRatio,2)}->${roundUp(newRatio,2)} height:${Math.ceil(boundingClientRect.height)} bottom:${Math.ceil(boundingClientRect.bottom)}`, entry.target.alt)
+      if (scrollingDown || scrollingUp) {
+        unobserve()
         // it's scrolling down and observed image started to hide.
         // so unobserve it and start loading next images.
-        const i = indexToObserveRef.current + INTERSECT_PAGESIZE
-        unobserve()
-        TouchIndexToObserve(i) // set next index and load two more images
+        const newIndex = indexToObserveRef.current + INTERSECT_PAGESIZE * (scrollingDown ? 1 : -1)
+        AdvanceIndexToObserve(newIndex, scrollingDown) // set next index and load more images
         //console.info(currentRatio + ' -> ' + newRatio + ' [' + i + ']')
       }
 
@@ -72,65 +77,94 @@ function useObserver(path) {
       console.error('failed to create IntersectionObserver:', e)
     }
 
-    console.warn(`useObserver fetchUrls '${path}'`)
-    fetchUrls(path)
+    console.warn(`useObserver fetchUrls '${path}' '${hash}'`)
+    fetchUrls(path, hash)
     return () => {
       console.warn('useObserver unobserve')
       unobserve()
     }
   }, [])
 
-  const TouchIndexToObserve = (value) => {
+  const AdvanceIndexToObserve = (newIndex, scrollingDown) => {
+    const currentndex = indexToObserveRef.current
     const len = listRef.current.length
+    console.log(`AdvanceIndexToObserve ${scrollingDown ? 'v' : '^'} ${currentndex}/${newIndex}/${len}`)
+
     const newList = [...listRef.current]
 
-    //console.log('TouchIndexToObserve', len, value, indexToObserveRef.current)
-    if (indexToObserveRef.current &&
-      (!value || value <= indexToObserveRef.current || value >= len)) {
-      console.error('TouchIndexToObserve', value)
-      return
-    }
-
-    setIndexToObserve(value)
-
-    // load more images
+    // load more images, consider the case where next image was already loaded
     let countToLoad = 0
+    for (let i = 0; countToLoad < INTERSECT_PAGESIZE; i++) {
+      const next = newIndex + i * (scrollingDown ? 1 : -1)
+      if ((scrollingDown && next >= len) || (!scrollingDown && next < 0)) {
+        break // reached the end 
+      }
+
+      console.log(`[${next}] ${Number(newList[next].toLoad)}`)
+      if (!newList[next].toLoad) {
+        newList[next].toLoad = true
+        countToLoad++
+      }
+    }
+/*
     for (let i = 0; i < INTERSECT_PAGESIZE; i++) {
-      const index = value + i
-      if (index === len) {
+      const index = newIndex + i * (scrollingDown ? 1 : -1)
+      if ((scrollingDown && index === len) || (!scrollingDown && index < 0)) {
         break // reached page end 
       }
 
-      newList[index].toLoad = true
-      countToLoad++
-      console.log('[' + index + ']')
+      if (!newList[index].toLoad) {
+        newList[index].toLoad = true
+        countToLoad++
+        console.log(`[${index}]`)
+      }
     }
-
+*/
     if (countToLoad) {
+      setIndexToObserve(newIndex)
       setList(newList)
     }
   }
 
-  const fetchUrls = (path) => {
+  const fetchUrls = (path, hash) => {
     //this.unobserve()
     if (window.SERVER_DATA) {
-      itemsWithToLoad(window.SERVER_DATA)
+      applyItems(hash)(window.SERVER_DATA)
       window.SERVER_DATA = null
     } else {
-      getUrls(path).then(itemsWithToLoad)
+      getUrls(path).then(applyItems(hash))
       //.catch(error => console.error('getUrls:', error))
     }
   }
 
-  const itemsWithToLoad = (items) => {
-    const _list = items.reverse().map((item, index) => (
-      { toLoad: index < 2, ...item }
-    ))
-    console.log('itemsWithToLoad:', _list.length)
-    setIndexToObserve(0)
-    setList(_list)
+  /*  Without hash, load first #0,#1 and observe #0 at onLoad.
+      With hash, say #5, load #4,#5,#6 and observe #5 at onLoad. 
+  */
+   const applyItems = (hash) => (items) => { 
+    let initialIndexToObserve = 0
+    const _list = items.reverse().map((item, index) => {
+      if (hash && hash === item.fileName) {
+        initialIndexToObserve = index
+      }
+      return { toLoad: !hash && index < INTERSECT_PAGESIZE, ...item }
+    })
 
-    //window.scrollTo(0, 0)
+    if (items && hash && initialIndexToObserve > 0) {
+      checkIndexAndSetToLoad(initialIndexToObserve, _list)
+      for (let i = 1; i < INTERSECT_PAGESIZE; i++) {
+        checkIndexAndSetToLoad(initialIndexToObserve - i, _list)
+        checkIndexAndSetToLoad(initialIndexToObserve + i, _list)
+      }
+    }
+    console.log(`applyItems: ${initialIndexToObserve}/${_list.length} ${hash}`)
+    setIndexToObserve(initialIndexToObserve)
+    setList(_list)
+  }
+
+  const checkIndexAndSetToLoad = (index, list) => {
+    if (index >= 0 && index < list.length) {
+      list[index].toLoad = true
+    }
   }
 
   const observe = me => {
@@ -143,7 +177,7 @@ function useObserver(path) {
     if (me.index === indexToObserve) {
       setElementToObserve(me.element)
       intersectionObserver.observe(me.element)
-      //console.info(`elementToObserve = ${me.index}`)
+      console.info(`observe [${me.index}]`)
     } else {
       //console.log(`observe(${me.index} !== ${indexToObserve})`)
     }
@@ -163,4 +197,10 @@ function useObserver(path) {
     list,
     onImageLoaded: observe
   }
+}
+
+function roundUp(num, precision) {
+  if (!num) { return num }
+  precision = Math.pow(10, precision)
+  return Math.ceil(num * precision) / precision
 }
