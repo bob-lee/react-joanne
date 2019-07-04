@@ -3,11 +3,13 @@ import Image from './Image'
 
 const isWindow = typeof window !== 'undefined'
 if (isWindow) {
-  var scroll = require('react-scroll').animateScroll
+  var Scroll = require('react-scroll')
+  var scroll = Scroll.animateScroll
+  var Element = Scroll.Element
 }
 
 const Images = (props) => {
-  const [showIcon, lastY] = useScroll()
+  const [showIcon, lastY] = useScroll(props)
 
   const scrollToTop = () => scroll.scrollToTop()
   const { list, ...propsButList } = props
@@ -18,10 +20,12 @@ const Images = (props) => {
     <div>
       <div className="images">
         {list.map((item, index) =>
-          <Image key={item.fileName}
-            item={item}
-            index={index}
-            {...propsButList} />
+          <Element name={item.fileName} key={item.fileName}>
+            <Image 
+              item={item}
+              index={index}
+              {...propsButList} />
+          </Element>
         )}
       </div>
       <div className={classes} onClick={scrollToTop}>
@@ -36,13 +40,14 @@ const Images = (props) => {
 
 export default Images
 
-function useScroll() {
+function useScroll(props) {
   const [showIcon, setShowIcon] = useState(false)
   const [lastY, setLastY] = useState(0)
   const [ticking, setTicking] = useState(false)
 
   useEffect(() => {
     console.log('addEventListener')
+    //console.log('addEventListener, router props:', props)
     const currentPositionY = () => window.pageYOffset
     const updateLastY = () => {
       const newY = currentPositionY()
@@ -60,10 +65,26 @@ function useScroll() {
         setTicking(true)
       }
     }
+    const scrollTo = (hash) => {
+      console.log('scrollTo', hash)
+      Scroll.scroller.scrollTo(hash, {
+        duration: 500,
+        //delay: 1500,
+        smooth: true
+      })
+    }
+    if (isWindow) {
+      window.addEventListener('scroll', handleScroll)
+      const hash = props.location && props.location.hash.slice(1)
+      if (hash) {
+        setTimeout(() => {
+          scrollTo(hash)
+        }, 1000);
+      }
+    }
 
-    isWindow && window.addEventListener('scroll', handleScroll)
     return () => { console.log('removeEventListener'); isWindow && window.removeEventListener('scroll', handleScroll) }
-  }, [])
+  }, [props.location])
 
   return [showIcon, lastY]
 }
