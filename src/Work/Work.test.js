@@ -12,7 +12,10 @@ global.IntersectionObserver = jest.fn()
 jest.mock('./api')
 
 const getProps = path => ( 
-  { match: { params: { name: path } } } 
+  { 
+    match: { params: { name: path } },
+    location: { hash: '' } 
+  } 
 )
 
 afterEach(cleanup)

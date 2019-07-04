@@ -5,87 +5,117 @@ exports[`makes an initial API call and renders, first two images to have src pro
   <div
     class="images"
   >
-    <div>
-      <div
-        class="loader"
-        style="margin: 0px auto;"
-      >
-        Loading...
-      </div>
-      <div
-        class="image"
-      >
-        <picture>
-          <img
-            alt="painting3.jpg"
-            class="image1"
-            src="/painting3.jpg"
-            title="image"
-          />
-        </picture>
+    <div
+      name="painting3.jpg"
+    >
+      <div>
         <div
-          class="expand"
+          class="loader"
+          style="margin: 0px auto;"
         >
-          <span>
-            painting3_text
-          </span>
-          <img
-            alt="thumb"
-            class="image2"
-            src="/painting3_thumb.jpg"
-          />
+          Loading...
+        </div>
+        <div
+          class="image"
+        >
+          <a
+            aria-hidden="true"
+            class="anchor"
+            href="#painting3.jpg"
+          >
+            <picture>
+              <img
+                alt="painting3.jpg"
+                class="image1"
+                src="/painting3.jpg"
+                title="image"
+              />
+            </picture>
+          </a>
+          <div
+            class="expand"
+          >
+            <span>
+              painting3_text
+            </span>
+            <img
+              alt="thumb"
+              class="image2"
+              src="/painting3_thumb.jpg"
+            />
+          </div>
         </div>
       </div>
     </div>
-    <div>
-      <div
-        class="loader"
-        style="margin: 0px auto;"
-      >
-        Loading...
-      </div>
-      <div
-        class="image"
-      >
-        <picture>
-          <img
-            alt="painting2.jpg"
-            class="image1"
-            src="/painting2.jpg"
-            title="image"
-          />
-        </picture>
+    <div
+      name="painting2.jpg"
+    >
+      <div>
         <div
-          class="expand"
+          class="loader"
+          style="margin: 0px auto;"
         >
-          <span>
-            painting2_text
-          </span>
-          <img
-            alt="thumb"
-            class="image2"
-            src="/painting2_thumb.jpg"
-          />
+          Loading...
+        </div>
+        <div
+          class="image"
+        >
+          <a
+            aria-hidden="true"
+            class="anchor"
+            href="#painting2.jpg"
+          >
+            <picture>
+              <img
+                alt="painting2.jpg"
+                class="image1"
+                src="/painting2.jpg"
+                title="image"
+              />
+            </picture>
+          </a>
+          <div
+            class="expand"
+          >
+            <span>
+              painting2_text
+            </span>
+            <img
+              alt="thumb"
+              class="image2"
+              src="/painting2_thumb.jpg"
+            />
+          </div>
         </div>
       </div>
     </div>
-    <div>
-      <div
-        class="image"
-      >
-        <picture>
-          <img
-            alt="painting1.jpg"
-            class="image1"
-            title="image"
-          />
-        </picture>
+    <div
+      name="painting1.jpg"
+    >
+      <div>
         <div
-          class="expand"
+          class="image"
         >
-          <span>
-            painting1_text
-          </span>
+          <a
+            aria-hidden="true"
+            class="anchor"
+            href="#painting1.jpg"
+          >
+            <picture>
+              <img
+                alt="painting1.jpg"
+                class="image1"
+                title="image"
+              />
+            </picture>
+          </a>
+          <div
+            class="expand"
+          >
+            <span>
+              painting1_text
+            </span>
+          </div>
         </div>
       </div>
     </div>

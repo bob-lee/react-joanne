@@ -75,7 +75,7 @@ function useScroll(props) {
     }
     if (isWindow) {
       window.addEventListener('scroll', handleScroll)
-      const hash = props.location.hash.slice(1)
+      const hash = props.location && props.location.hash.slice(1)
       if (hash) {
         setTimeout(() => {
           scrollTo(hash)
@@ -84,7 +84,7 @@ function useScroll(props) {
     }
 
     return () => { console.log('removeEventListener'); isWindow && window.removeEventListener('scroll', handleScroll) }
-  }, [])
+  }, [props.location])
 
   return [showIcon, lastY]
 }

@@ -5,14 +5,20 @@ exports[`Image renders correctly with toLoad=false 1`] = `
   <div
     className="image"
   >
-    <picture>
-      <img
-        alt="test.jpg"
-        className="image1"
-        onLoad={[Function]}
-        title="image"
-      />
-    </picture>
+    <a
+      aria-hidden="true"
+      className="anchor"
+      href="#test.jpg"
+    >
+      <picture>
+        <img
+          alt="test.jpg"
+          className="image1"
+          onLoad={[Function]}
+          title="image"
+        />
+      </picture>
+    </a>
     <div
       className="expand"
     >
@@ -39,15 +45,21 @@ exports[`Image renders correctly with toLoad=true 1`] = `
   <div
     className="image"
   >
-    <picture>
-      <img
-        alt="test.jpg"
-        className="image1"
-        onLoad={[Function]}
-        src="/test.jpg"
-        title="image"
-      />
-    </picture>
+    <a
+      aria-hidden="true"
+      className="anchor"
+      href="#test.jpg"
+    >
+      <picture>
+        <img
+          alt="test.jpg"
+          className="image1"
+          onLoad={[Function]}
+          src="/test.jpg"
+          title="image"
+        />
+      </picture>
+    </a>
     <div
       className="expand"
     >
@@ -69,15 +81,21 @@ exports[`onImageLoaded should be called on 'load' event 1`] = `
   <div
     className="image show"
   >
-    <picture>
-      <img
-        alt="test.jpg"
-        className="image1"
-        onLoad={[Function]}
-        src="/test.jpg"
-        title="image"
-      />
-    </picture>
+    <a
+      aria-hidden="true"
+      className="anchor"
+      href="#test.jpg"
+    >
+      <picture>
+        <img
+          alt="test.jpg"
+          className="image1"
+          onLoad={[Function]}
+          src="/test.jpg"
+          title="image"
+        />
+      </picture>
+    </a>
     <div
       className="expand"
     >
