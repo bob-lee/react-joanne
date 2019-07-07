@@ -1,19 +1,25 @@
 import React, { useState } from 'react'
 import Loader from './Loader'
 
-const Image = (props) => {
+const Image = ({index, item, imagesOnLoad, imagesOnClick}) => {
   const [loaded, setLoaded] = useState(false)
 
   let imgElement = null
   const handleLoad = (e) => {
     setLoaded(true)
-    props.onImageLoaded({
+    imagesOnLoad(e.type, {
       element: imgElement,
-      index: props.index
+      index
+    })
+  }
+  const handleClick = (e) => {
+    e.preventDefault()
+    imagesOnClick(e.type, {
+      element: imgElement,
+      index
     })
   }
 
-  const item = props.item
   const classes = loaded ? 'image show' : 'image'
   
   const style = { margin: '0 auto' }
@@ -26,7 +32,7 @@ const Image = (props) => {
     <div>
       {loading}
       <div className={classes}>
-        <a href={'#' + item.fileName} aria-hidden="true" className="anchor">
+        <a href={'#' + item.fileName} aria-hidden="true" className="anchor" onClick={handleClick}>
         <picture>
           <img src={item.toLoad ? item.url : undefined}
             onLoad={handleLoad}

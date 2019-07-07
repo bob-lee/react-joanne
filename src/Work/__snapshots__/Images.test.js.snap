@@ -6,6 +6,7 @@ exports[`Images renders correctly 1`] = `
     className="images"
   >
     <div
+      data-index={0}
       name="test1.jpg"
     >
       <div>
@@ -26,6 +27,7 @@ exports[`Images renders correctly 1`] = `
             aria-hidden="true"
             className="anchor"
             href="#test1.jpg"
+            onClick={[Function]}
           >
             <picture>
               <img
@@ -53,6 +55,7 @@ exports[`Images renders correctly 1`] = `
       </div>
     </div>
     <div
+      data-index={1}
       name="test2.jpg"
     >
       <div>
@@ -63,6 +66,7 @@ exports[`Images renders correctly 1`] = `
             aria-hidden="true"
             className="anchor"
             href="#test2.jpg"
+            onClick={[Function]}
           >
             <picture>
               <img
@@ -103,6 +107,7 @@ exports[`Images renders correctly 1`] = `
 
 exports[`Images renders correctly after first image loaded 1`] = `
 <Images
+  hash=""
   list={
     Array [
       Object {
@@ -121,10 +126,12 @@ exports[`Images renders correctly after first image loaded 1`] = `
       },
     ]
   }
-  onImageLoaded={
+  workOnClick={[MockFunction]}
+  workOnLoad={
     [MockFunction] {
       "calls": Array [
         Array [
+          "load",
           Object {
             "element": <img
               alt="test1.jpg"
@@ -150,14 +157,17 @@ exports[`Images renders correctly after first image loaded 1`] = `
       className="images"
     >
       <Element
+        data-index={0}
         key="test1.jpg"
         name="test1.jpg"
       >
         <ElementWrapper
+          data-index={0}
           name="test1.jpg"
           parentBindings={
             Object {
               "domNode": <div
+                data-index="0"
                 name="test1.jpg"
               >
                 <div>
@@ -197,9 +207,12 @@ exports[`Images renders correctly after first image loaded 1`] = `
           }
         >
           <div
+            data-index={0}
             name="test1.jpg"
           >
             <Image
+              imagesOnClick={[Function]}
+              imagesOnLoad={[Function]}
               index={0}
               item={
                 Object {
@@ -208,29 +221,6 @@ exports[`Images renders correctly after first image loaded 1`] = `
                   "thumbUrl": "/test1_thumb.jpg",
                   "toLoad": true,
                   "url": "/test1.jpg",
-                }
-              }
-              onImageLoaded={
-                [MockFunction] {
-                  "calls": Array [
-                    Array [
-                      Object {
-                        "element": <img
-                          alt="test1.jpg"
-                          class="image1"
-                          src="/test1.jpg"
-                          title="image"
-                        />,
-                        "index": 0,
-                      },
-                    ],
-                  ],
-                  "results": Array [
-                    Object {
-                      "type": "return",
-                      "value": undefined,
-                    },
-                  ],
                 }
               }
             >
@@ -242,6 +232,7 @@ exports[`Images renders correctly after first image loaded 1`] = `
                     aria-hidden="true"
                     className="anchor"
                     href="#test1.jpg"
+                    onClick={[Function]}
                   >
                     <picture>
                       <img
@@ -272,14 +263,17 @@ exports[`Images renders correctly after first image loaded 1`] = `
         </ElementWrapper>
       </Element>
       <Element
+        data-index={1}
         key="test2.jpg"
         name="test2.jpg"
       >
         <ElementWrapper
+          data-index={1}
           name="test2.jpg"
           parentBindings={
             Object {
               "domNode": <div
+                data-index="1"
                 name="test2.jpg"
               >
                 <div>
@@ -313,9 +307,12 @@ exports[`Images renders correctly after first image loaded 1`] = `
           }
         >
           <div
+            data-index={1}
             name="test2.jpg"
           >
             <Image
+              imagesOnClick={[Function]}
+              imagesOnLoad={[Function]}
               index={1}
               item={
                 Object {
@@ -324,29 +321,6 @@ exports[`Images renders correctly after first image loaded 1`] = `
                   "thumbUrl": "/test2_thumb.jpg",
                   "toLoad": false,
                   "url": "/test2.jpg",
-                }
-              }
-              onImageLoaded={
-                [MockFunction] {
-                  "calls": Array [
-                    Array [
-                      Object {
-                        "element": <img
-                          alt="test1.jpg"
-                          class="image1"
-                          src="/test1.jpg"
-                          title="image"
-                        />,
-                        "index": 0,
-                      },
-                    ],
-                  ],
-                  "results": Array [
-                    Object {
-                      "type": "return",
-                      "value": undefined,
-                    },
-                  ],
                 }
               }
             >
@@ -358,6 +332,7 @@ exports[`Images renders correctly after first image loaded 1`] = `
                     aria-hidden="true"
                     className="anchor"
                     href="#test2.jpg"
+                    onClick={[Function]}
                   >
                     <picture>
                       <img

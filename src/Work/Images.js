@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useReducer, useEffect } from 'react'
 import Image from './Image'
 
 const isWindow = typeof window !== 'undefined'
@@ -6,13 +6,17 @@ if (isWindow) {
   var Scroll = require('react-scroll')
   var scroll = Scroll.animateScroll
   var Element = Scroll.Element
+  var Events = Scroll.Events
 }
 
 const Images = (props) => {
-  const [showIcon, lastY] = useScroll(props)
+  const [showIcon, lastY, handlers] = useScroll(props)
 
-  const scrollToTop = () => scroll.scrollToTop()
-  const { list, ...propsButList } = props
+  const scrollToTop = (e) => {
+    e.preventDefault()
+    props.workOnScrollToTop(() => scroll.scrollToTop())
+  }
+  const { list } = props
   const classes = showIcon ? 'back-to-top show' : 'back-to-top'
   const info = Math.ceil(lastY)
 
@@ -20,11 +24,12 @@ const Images = (props) => {
     <div>
       <div className="images">
         {list.map((item, index) =>
-          <Element name={item.fileName} key={item.fileName}>
-            <Image 
+          <Element name={item.fileName} key={item.fileName} data-index={index}>
+            <Image
               item={item}
               index={index}
-              {...propsButList} />
+              {...handlers}
+            />
           </Element>
         )}
       </div>
@@ -40,51 +45,97 @@ const Images = (props) => {
 
 export default Images
 
-function useScroll(props) {
-  const [showIcon, setShowIcon] = useState(false)
-  const [lastY, setLastY] = useState(0)
-  const [ticking, setTicking] = useState(false)
+const initialState = {
+  showIcon: false,
+  lastY: 0
+}
+
+const currentPositionY = () => window.pageYOffset
+
+function reducer(state, action) {
+  if (action.type === 'updateLastY') {
+    const newY = currentPositionY()
+    return newY === state.lastY ? { ...state } : {
+      ...state,
+      lastY: newY,
+      showIcon: newY > 500
+    }
+  } else {
+    throw new Error(`unknown type '${action.type}'`)
+  }
+}
+
+function useScroll({ path, hash, workOnClick, workOnLoad, DEV }) {
+  const [state, dispatch] = useReducer(reducer, initialState)
+  const { showIcon, lastY } = state
 
   useEffect(() => {
-    console.log('addEventListener')
-    //console.log('addEventListener, router props:', props)
-    const currentPositionY = () => window.pageYOffset
-    const updateLastY = () => {
-      const newY = currentPositionY()
-      if (newY !== lastY) {
-        setLastY(newY)
-        setShowIcon(isWindow && newY > 500)
-      }
-    }
+    let ticking = false
     const handleScroll = (e) => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          updateLastY()
-          setTicking(false)
+          dispatch({ type: 'updateLastY' })
+          ticking = false
         })
-        setTicking(true)
+        ticking = true
       }
-    }
-    const scrollTo = (hash) => {
-      console.log('scrollTo', hash)
-      Scroll.scroller.scrollTo(hash, {
-        duration: 500,
-        //delay: 1500,
-        smooth: true
-      })
     }
     if (isWindow) {
+      console.log('addEventListener')
       window.addEventListener('scroll', handleScroll)
-      const hash = props.location && props.location.hash.slice(1)
-      if (hash) {
-        setTimeout(() => {
-          scrollTo(hash)
-        }, 1000);
-      }
     }
 
-    return () => { console.log('removeEventListener'); isWindow && window.removeEventListener('scroll', handleScroll) }
-  }, [props.location])
+    return () => {
+      console.log('removeEventListener')
+      isWindow && window.removeEventListener('scroll', handleScroll)
+    }
+  }, [dispatch, hash])
 
-  return [showIcon, lastY]
+  const scrollTo = (to) => {
+    Scroll.scroller.scrollTo(to, {
+      duration: 500,
+      //delay: 1500,
+      smooth: true
+    })
+  }
+
+  const imagesOnClick = (eventType, me) => { // a callback for Images component to handle onClick event in Image component
+    scrollTo(me.element.alt)
+    // needs to unobserve first and scroll then observe
+    // workOnClick()
+    // Events.scrollEvent.register('end', (to) => {
+    //   workOnLoad(eventType, me)
+    //   Events.scrollEvent.remove('end')
+    //   console.log(`imagesOnClick scroll end`, to)
+    // })
+    // setTimeout(() => scrollTo(me.element.alt), 0)
+  }
+
+  const imagesOnLoad = (eventType, me) => { // a callback for Images component to handle onLoad event in Image component
+    if (DEV) console.log(`imagesOnLoad[${me.index}]`, me.element.alt, eventType)
+    if (!me || !me.element || me.index === undefined) {
+      console.warn(`imagesOnLoad() invalid input: ${me}`)
+      return
+    }
+
+    if (hash === me.element.alt) {
+      Events.scrollEvent.register('end', (to) => {
+        workOnLoad(eventType, me)
+        Events.scrollEvent.remove('end')
+        if (DEV) console.log(`imagesOnLoad scroll end`, to)
+      })
+      setTimeout(() => scrollTo(hash), 200) // need 200ms delay to paint?
+    } else {
+      workOnLoad(eventType, me)
+    }
+  }
+
+  return [
+    showIcon, 
+    lastY, 
+    {
+      imagesOnLoad, 
+      imagesOnClick
+    }
+  ]
 }

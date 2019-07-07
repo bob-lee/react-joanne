@@ -9,6 +9,7 @@ exports[`Image renders correctly with toLoad=false 1`] = `
       aria-hidden="true"
       className="anchor"
       href="#test.jpg"
+      onClick={[Function]}
     >
       <picture>
         <img
@@ -49,6 +50,7 @@ exports[`Image renders correctly with toLoad=true 1`] = `
       aria-hidden="true"
       className="anchor"
       href="#test.jpg"
+      onClick={[Function]}
     >
       <picture>
         <img
@@ -76,7 +78,51 @@ exports[`Image renders correctly with toLoad=true 1`] = `
 </div>
 `;
 
-exports[`onImageLoaded should be called on 'load' event 1`] = `
+exports[`imagesOnClick should be called on 'click' event 1`] = `
+<div>
+  <Loader
+    style={
+      Object {
+        "margin": "0 auto",
+      }
+    }
+  />
+  <div
+    className="image"
+  >
+    <a
+      aria-hidden="true"
+      className="anchor"
+      href="#test.jpg"
+      onClick={[Function]}
+    >
+      <picture>
+        <img
+          alt="test.jpg"
+          className="image1"
+          onLoad={[Function]}
+          src="/test.jpg"
+          title="image"
+        />
+      </picture>
+    </a>
+    <div
+      className="expand"
+    >
+      <span>
+        test
+      </span>
+      <img
+        alt="thumb"
+        className="image2"
+        src="/test_thumb.jpg"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`imagesOnLoad should be called on 'load' event 1`] = `
 <div>
   <div
     className="image show"
@@ -85,6 +131,7 @@ exports[`onImageLoaded should be called on 'load' event 1`] = `
       aria-hidden="true"
       className="anchor"
       href="#test.jpg"
+      onClick={[Function]}
     >
       <picture>
         <img

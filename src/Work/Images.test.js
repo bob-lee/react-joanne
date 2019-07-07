@@ -21,27 +21,31 @@ const list = [
   }
 ]
 
+const getProps = (hash) => ({
+  list,
+  hash, 
+  workOnClick: jest.fn(), 
+  workOnLoad: jest.fn()
+})
 const handleImageLoaded = jest.fn()
 
 it('Images renders without crashing', () => {
+  const props = getProps('')
   const div = document.createElement('div')
-  ReactDOM.render(<Images list={list} onImageLoaded={handleImageLoaded} />, div)
+  ReactDOM.render(<Images {...props} />, div)
 })
 
 it('Images renders correctly', () => {
+  const props = getProps('')
   const tree = renderer
-    .create(<Images list={list} onImageLoaded={handleImageLoaded} />)
+    .create(<Images {...props} />)
     .toJSON()
   expect(tree).toMatchSnapshot()
 })
 
-// it(`Images renders correctly`, () => {
-//   const wrapper = shallow(<Images list={list} onImageLoaded={handleImageLoaded} />);
-//   expect(toJson(wrapper)).toMatchSnapshot();
-// });
-
 it(`Images renders correctly after first image loaded`, () => {
-  const wrapper = mount(<Images list={list} onImageLoaded={handleImageLoaded} />)
+  const props = getProps('')
+  const wrapper = mount(<Images {...props} />)
   const firstChild = wrapper.find('.images').childAt(0)
   //console.log(firstChild)
   firstChild.find('img.image1').simulate('load')

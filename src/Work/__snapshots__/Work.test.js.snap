@@ -6,6 +6,7 @@ exports[`makes an initial API call and renders, first two images to have src pro
     class="images"
   >
     <div
+      data-index="0"
       name="painting3.jpg"
     >
       <div>
@@ -48,6 +49,7 @@ exports[`makes an initial API call and renders, first two images to have src pro
       </div>
     </div>
     <div
+      data-index="1"
       name="painting2.jpg"
     >
       <div>
@@ -90,6 +92,7 @@ exports[`makes an initial API call and renders, first two images to have src pro
       </div>
     </div>
     <div
+      data-index="2"
       name="painting1.jpg"
     >
       <div>

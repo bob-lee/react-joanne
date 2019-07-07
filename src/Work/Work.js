@@ -7,26 +7,26 @@ if (typeof window !== 'undefined') {
   require('./Work.css')
 }
 
-const Work = (props) => {
-  const list = useObserver(props/*.match.params.name*/)
+const Work = ({ location, match, ...propsForImages }) => {
+  const additionalProps = useObserver(location, match)
 
   return (
-    <Images {...list} {...props} />
+    <Images {...propsForImages} {...additionalProps} />
   )
-};
+}
 
-export default Work;
+export default Work
 
 const INTERSECT_PAGESIZE = 2
 const DEV = false
 
 const initialState = {
   list: [],
-  scrolling: '-',
+  scrolling: '-', // 'v': scrolling down, '^': scrolling up
   intersectionRatio: null,
   elementsToObserve: [null, null], // [0]=element being observed, [1]=element to observe when direction changed
-  indexToObserve: null,
-  intersectionObserver: null
+  indexToObserve: null, // index of element being observed or to observe soon
+  intersectionObserver: null // instance of observer
 }
 
 function reducer(state, action) {
@@ -48,7 +48,7 @@ function reducer(state, action) {
       elementsToObserve: [action.me, state.elementsToObserve[1]],
       intersectionRatio: undefined
     }
-    if (action.indexToObserve) { // update index
+    if (action.indexToObserve !== undefined) { // update index
       newState.indexToObserve = action.indexToObserve
     }
     if (action.scrolling) {
@@ -57,7 +57,7 @@ function reducer(state, action) {
     return newState
   } else if (action.type === 'unobserveMe') {
     if (action.index !== state.elementsToObserve[0].index) {
-      throw new Error(`unobserveMe index mismatch ${action.index} <> ${state.elementsToObserve[0].index}`)
+      throw new Error(`reducer(unobserveMe) index mismatch ${action.index} <> ${state.elementsToObserve[0].index}`)
     }
 
     return {
@@ -77,28 +77,26 @@ function reducer(state, action) {
       indexToObserve: action.indexToObserve
     }
   } else {
-    throw new Error(`unknown type '${action.type}'`)
+    throw new Error(`reducer(${action.type}) unknown type`)
   }
 }
 
-function useObserver(props) {
+function useObserver(location, match) {
   const [state, dispatch] = useReducer(reducer, initialState)
   const stateRef = useRef(initialState)
   useEffect(() => {
     stateRef.current = state
   })
 
-  const { list, indexToObserve, intersectionObserver } = state
-
-  const { location, match } = props
+  const { list, indexToObserve, elementsToObserve, intersectionObserver } = state
   const path = match.params.name
   const hash = location.hash && location.hash.slice(1)
 
   useEffect(() => {
     const handleIntersection = (entries) => {
       const entry = entries[0] // observe one element
-      const currentRatio = stateRef.current.intersectionRatio
       const currentScrolling = stateRef.current.scrolling
+      const currentRatio = stateRef.current.intersectionRatio
       const newRatio = entry.intersectionRatio
       const boundingClientRect = entry.boundingClientRect
       const ratioChanged = currentRatio !== undefined && newRatio < currentRatio
@@ -115,7 +113,7 @@ function useObserver(props) {
 height:${Math.ceil(boundingClientRect.height)}, bottom:${Math.ceil(boundingClientRect.bottom)}, \
       */
       if (DEV) {
-      console.log(`scrolling: ${entries.length}, ${currentScrolling} ${newScrolling}, \
+        console.log(`scrolling: ${entries.length}, ${currentScrolling} ${newScrolling}, \
 [${show(stateRef.current.elementsToObserve)}], ${stateRef.current.indexToObserve}, \
 ${entry.target.alt}, ${entry.isIntersecting}, \
 ratio:${roundUp(currentRatio, 3)}->${roundUp(newRatio, 3)}`)
@@ -124,12 +122,12 @@ ratio:${roundUp(currentRatio, 3)}->${roundUp(newRatio, 3)}`)
       if (scrollingDown || scrollingUp) {
         // it's scrolling and observed image started to hide.
         // so unobserve it and load more images.
-        MoveIndex(currentScrolling, newScrolling) // set next index and load more images
+        MoveIndex(currentScrolling, newScrolling)
       }
-      
+
       //console.log(entry)
     }
-    
+
     //  Without hash, load first #0,#1 and observe #0 at onLoad.
     //  With hash, say #5, load #4,#5,#6 and observe #5 at onLoad.
     const MoveIndex = (currentScrolling, newScrolling) => {
@@ -137,9 +135,7 @@ ratio:${roundUp(currentRatio, 3)}->${roundUp(newRatio, 3)}`)
       const newIndex = currentIndex + INTERSECT_PAGESIZE * (newScrolling === 'v' ? 1 : -1)
       const len = stateRef.current.list.length
 
-      if (DEV) {
-        console.log(`MoveIndex ${currentScrolling} ${newScrolling} ${currentIndex}/${newIndex}/${len}`)
-      }
+      if (DEV) console.log(`MoveIndex ${currentScrolling} ${newScrolling} ${currentIndex}/${newIndex}/${len}`)
 
       const newList = [...stateRef.current.list]
 
@@ -150,7 +146,7 @@ ratio:${roundUp(currentRatio, 3)}->${roundUp(newRatio, 3)}`)
       const me = stateRef.current.elementsToObserve[1]
 
       if (directionChanged && me) {
-        unobserveMe(true)
+        unobserve(true)
         stateRef.current.intersectionObserver.observe(me.element)
         dispatch({
           type: 'observeMe',
@@ -160,7 +156,7 @@ ratio:${roundUp(currentRatio, 3)}->${roundUp(newRatio, 3)}`)
         })
         if (DEV) console.info(`observeMe [${me.index}] directionChanged`)
       } else if (stateRef.current.list.filter(e => !e.toLoad).length === 0) {
-        unobserveMe(false)
+        unobserve(false)
         if (DEV) console.info('no more items to load')
       } else {
         for (let i = 0; countToLoad < INTERSECT_PAGESIZE; i++) {
@@ -180,8 +176,8 @@ ratio:${roundUp(currentRatio, 3)}->${roundUp(newRatio, 3)}`)
         }
 
         if (countToLoad) {
-          const keepElement = (currentScrolling === '-' && hash) || directionChanged ? true : false
-          unobserveMe(keepElement)
+          const keepElement = (currentScrolling === '-' && hash) || directionChanged
+          unobserve(keepElement)
 
           dispatch({
             type: 'newIndex',
@@ -204,27 +200,27 @@ ratio:${roundUp(currentRatio, 3)}->${roundUp(newRatio, 3)}`)
     }
 
     const applyItems = (hash) => (items) => {
-      let initialIndexToObserve = 0
+      let initialIndex = 0
       const list = items.reverse().map((item, index) => {
         if (hash && hash === item.fileName) {
-          initialIndexToObserve = index
+          initialIndex = index
         }
         return { toLoad: !hash && index < INTERSECT_PAGESIZE, ...item }
       })
 
-      if (items && hash && initialIndexToObserve > 0) {
-        checkIndexAndSetToLoad(initialIndexToObserve, list)
+      if (items && hash && initialIndex > 0) {
+        checkIndexAndSetToLoad(initialIndex, list)
         for (let i = 1; i < INTERSECT_PAGESIZE; i++) {
-          checkIndexAndSetToLoad(initialIndexToObserve - i, list)
-          checkIndexAndSetToLoad(initialIndexToObserve + i, list)
+          checkIndexAndSetToLoad(initialIndex - i, list)
+          checkIndexAndSetToLoad(initialIndex + i, list)
         }
       }
-      console.log(`applyItems: ${initialIndexToObserve}/${list.length} ${hash}`)
+      console.info(`applyItems: ${initialIndex}/${list.length} ${hash}`)
 
       dispatch({
         type: 'gotUrls',
         list: list,
-        indexToObserve: initialIndexToObserve
+        indexToObserve: initialIndex
       })
     }
 
@@ -234,27 +230,12 @@ ratio:${roundUp(currentRatio, 3)}->${roundUp(newRatio, 3)}`)
       }
     }
 
-    const unobserveMe = (keepElement) => { // unobserve current element
-      const len = stateRef.current.elementsToObserve.length
+    const unobserve = (keepElement) => { // unobserve current element
       const me = stateRef.current.elementsToObserve[0]
       const index = stateRef.current.indexToObserve
-  
-      if (!me) {
-        // just return
-      } else if (len !== 2 || index !== me.index) {
-        console.error(`wrong elementsToObserve ${index}/${me.index}/${len}`)
-      } else {
-        stateRef.current.intersectionObserver.unobserve(me.element)
-        if (DEV) console.info(`unobserveMe [${index}]`, keepElement)
-  
-        dispatch({
-          type: 'unobserveMe',
-          index,
-          keepElement
-        })
-      }
+      unobserveMe(me, index, stateRef.current.intersectionObserver, keepElement)
     }
-  
+
     if (typeof window !== 'undefined') {
       try {
         const intersectionObserver = new IntersectionObserver(handleIntersection, { threshold: [0, 0.25, 0.5, 0.75, 1] })
@@ -272,33 +253,107 @@ ratio:${roundUp(currentRatio, 3)}->${roundUp(newRatio, 3)}`)
 
     return () => { // clear effect
       if (DEV) console.warn('useObserver clear')
-      unobserveMe(false)
+      unobserve(false)
     }
   }, [dispatch, hash, path])
 
-
-  const observeMe = (me) => { // a callback used by Image component at onLoad event
-    //console.log('observe', me)
-    if (!me || !me.element || me.index === undefined) {
-      console.warn(`observeMe() invalid input: ${me}`)
-      return
-    }
-
-    if (me.index === indexToObserve) {
+  const observeMe = (eventType, me) => { // a callback for Work component to handle onLoad event in Image component
+    if (eventType === 'click') {
+      intersectionObserver.observe(me.element)
+      dispatch({
+        type: 'observeMe',
+        me: me,
+        scrolling: '-', // ???
+        indexToObserve: me.index
+      })
+    } else if (eventType === 'load' && me.index === indexToObserve) {
       intersectionObserver.observe(me.element)
       dispatch({
         type: 'observeMe',
         me: me
       })
-      console.info(`observeMe [${me.index}]`)
     } else {
+      return
       //console.log(`observe(${me.index} !== ${indexToObserve})`)
     }
+
+    if (DEV) console.info(`observeMe [${me.index}]`, eventType)
+  }
+
+  const unobserveMe = (me, index, observer, keepElement) => {
+    if (!me) {
+      // just return
+    } else if (index !== me.index) {
+      console.error(`unobserveMe got wrong elementsToObserve ${index}/${me.index}`)
+    } else {
+      observer.unobserve(me.element)
+      
+      if (DEV) console.info(`unobserveMe [${index}]`, keepElement)
+
+      dispatch({
+        type: 'unobserveMe',
+        index,
+        keepElement
+      })
+    }
+  }
+
+  const workOnScrollToTop = (done) => {
+    // unobserve
+    workOnClick()
+
+    // load if needed, observe if needed
+    const newList = [...list]
+
+    let countToLoad = 0
+    for (let i = 0; i < INTERSECT_PAGESIZE; i++) {
+      if (!newList[i].toLoad) {
+        newList[i].toLoad = true
+        countToLoad++
+      }
+    }
+    if (countToLoad) {
+      dispatch({
+        type: 'newIndex',
+        list: newList,
+        scrolling: '^',
+        indexToObserve: 0
+      })
+      
+      if (DEV) console.log(`workOnScrollToTop to load ${countToLoad} image(s)`)
+    } else {
+      const target = document.querySelector(`div[data-index="0"] img`)
+      intersectionObserver.observe(target)
+      dispatch({
+        type: 'observeMe',
+        me: {
+          element: target,
+          index: 0
+        },
+        scrolling: '^',
+        indexToObserve: 0
+      })
+      
+      if (DEV) console.log(`workOnScrollToTop to observe`, target.alt)
+    }
+
+    // scroll to top
+    done()
+  }
+
+
+  const workOnClick = () => {
+    unobserveMe(elementsToObserve[0], indexToObserve, intersectionObserver, false)
   }
 
   return {
     list,
-    onImageLoaded: observeMe
+    workOnScrollToTop,
+    workOnClick,
+    workOnLoad: observeMe,
+    path,
+    hash,
+    DEV
   }
 }
 
