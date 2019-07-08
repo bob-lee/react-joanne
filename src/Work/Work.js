@@ -36,12 +36,16 @@ function reducer(state, action) {
       intersectionRatio: action.intersectionRatio
     }
   } else if (action.type === 'newIndex') {
-    return {
+    const newState = {
       ...state,
       list: action.list,
       scrolling: action.scrolling,
       indexToObserve: action.indexToObserve
     }
+    if (newState.indexToObserve === 0) { // most likely scroll-to-top, erase [1] if any
+      newState.elementsToObserve[1] = null
+    }
+    return newState
   } else if (action.type === 'observeMe') {
     const newState = {
       ...state,
@@ -176,7 +180,7 @@ ratio:${roundUp(currentRatio, 3)}->${roundUp(newRatio, 3)}`)
         }
 
         if (countToLoad) {
-          const keepElement = (currentScrolling === '-' && hash) || directionChanged
+          const keepElement = (currentScrolling === '-' && hash) || directionChanged ? true : false
           unobserve(keepElement)
 
           dispatch({
