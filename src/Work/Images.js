@@ -1,5 +1,7 @@
 import React, { useReducer, useEffect } from 'react'
 import Image from './Image'
+import Fullscreen from './Fullscreen'
+import './Images.css'
 
 const isWindow = typeof window !== 'undefined'
 if (isWindow) {
@@ -10,7 +12,7 @@ if (isWindow) {
 }
 
 const Images = (props) => {
-  const [showIcon, lastY, handlers] = useScroll(props)
+  const [showIcon, lastY, imageFullscreen, showFullscreen, hideFullscreen, prevFullscreen, nextFullscreen, handlers] = useScroll(props)
 
   const scrollToTop = (e) => {
     e.preventDefault()
@@ -18,6 +20,7 @@ const Images = (props) => {
   }
   const { list } = props
   const classes = showIcon ? 'back-to-top show' : 'back-to-top'
+
   const info = Math.ceil(lastY)
 
   return (
@@ -39,6 +42,13 @@ const Images = (props) => {
       <div className="back-to-top test">
         {info}
       </div>
+      <Fullscreen 
+        img={imageFullscreen} 
+        toShow={showFullscreen} 
+        onExit={hideFullscreen}
+        onPrev={prevFullscreen}
+        onNext={nextFullscreen}>
+      </Fullscreen>
     </div>
   )
 }
@@ -47,7 +57,9 @@ export default Images
 
 const initialState = {
   showIcon: false,
-  lastY: 0
+  lastY: 0,
+  showFullscreen: false,
+  imageFullscreen: null
 }
 
 const currentPositionY = () => window.pageYOffset
@@ -60,14 +72,26 @@ function reducer(state, action) {
       lastY: newY,
       showIcon: newY > 500
     }
+  } else if (action.type === 'fullscreen') {
+    if (!action.imageFullscreen) { return state }
+    return {
+      ...state,
+      showFullscreen: true,
+      imageFullscreen: action.imageFullscreen
+    }
+  } else if (action.type === 'showFullscreen') {
+    return {
+      ...state,
+      showFullscreen: action.showFullscreen
+    }
   } else {
     throw new Error(`unknown type '${action.type}'`)
   }
 }
 
-function useScroll({ path, hash, workOnClick, workOnLoad, DEV }) {
+function useScroll({ list, path, hash, workOnClick, workOnLoad, DEV }) {
   const [state, dispatch] = useReducer(reducer, initialState)
-  const { showIcon, lastY } = state
+  const { showIcon, imageFullscreen, showFullscreen, lastY } = state
 
   useEffect(() => {
     let ticking = false
@@ -91,6 +115,33 @@ function useScroll({ path, hash, workOnClick, workOnLoad, DEV }) {
     }
   }, [dispatch, hash])
 
+  const setImageFullscreen = (img) => dispatch({ type: 'fullscreen', imageFullscreen: img })
+  const setShowFullscreen = (toShow) => dispatch({ type: 'showFullscreen', showFullscreen: toShow })
+  const hideFullscreen = () => setShowFullscreen(false)
+  const prevFullscreen = () => scrollToAndFullscreen(getImage(true))
+  const nextFullscreen = () => scrollToAndFullscreen(getImage(false))
+
+  const getImage = (prev) => {
+    try {
+      // get current index
+      let currentIndex = 0
+      if (imageFullscreen) {
+        const div = document.querySelector(`div[name="${imageFullscreen.alt}"]`)
+        currentIndex = Number(div.dataset.index)
+        console.log(`getImage currentIndex ${currentIndex}/${list.length}`, prev)
+      }
+      if (prev && currentIndex === 0 || !prev && currentIndex === (list.length - 1)) { return null }
+      currentIndex = currentIndex + 1 * (prev ? -1 : 1)
+
+      const img = document.querySelector(`div[data-index="${currentIndex}"] img`)
+      console.log(`getImage ${currentIndex}`, img && img.alt)
+      return img
+    } catch (e) {
+      console.error('getImage', e)
+      return null
+    }
+  }
+
   const scrollTo = (to) => {
     Scroll.scroller.scrollTo(to, {
       duration: 500,
@@ -99,16 +150,20 @@ function useScroll({ path, hash, workOnClick, workOnLoad, DEV }) {
     })
   }
 
+  const scrollToAndFullscreen = (img) => {
+    if (!img) { return }
+
+    scrollTo(img.alt)
+
+    if (!imageFullscreen || imageFullscreen.alt !== img.alt) {
+      setImageFullscreen(img)
+    } else {
+      setShowFullscreen(true)
+    }
+  }
+
   const imagesOnClick = (eventType, me) => { // a callback for Images component to handle onClick event in Image component
-    scrollTo(me.element.alt)
-    // needs to unobserve first and scroll then observe
-    // workOnClick()
-    // Events.scrollEvent.register('end', (to) => {
-    //   workOnLoad(eventType, me)
-    //   Events.scrollEvent.remove('end')
-    //   console.log(`imagesOnClick scroll end`, to)
-    // })
-    // setTimeout(() => scrollTo(me.element.alt), 0)
+    scrollToAndFullscreen(me.element)
   }
 
   const imagesOnLoad = (eventType, me) => { // a callback for Images component to handle onLoad event in Image component
@@ -131,10 +186,15 @@ function useScroll({ path, hash, workOnClick, workOnLoad, DEV }) {
   }
 
   return [
-    showIcon, 
-    lastY, 
+    showIcon,
+    lastY,
+    imageFullscreen,
+    showFullscreen,
+    hideFullscreen,
+    prevFullscreen,
+    nextFullscreen,
     {
-      imagesOnLoad, 
+      imagesOnLoad,
       imagesOnClick
     }
   ]
