@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import './Fullscreen.css'
+if (typeof window !== 'undefined') {
+  require('./Fullscreen.css')
+}
 
 const Fullscreen = ({img, toShow, onExit, onPrev, onNext}) => {
   const [fileName, setFileName] = useState('')

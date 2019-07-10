@@ -1,7 +1,6 @@
 import React, { useReducer, useEffect } from 'react'
 import Image from './Image'
 import Fullscreen from './Fullscreen'
-import './Images.css'
 
 const isWindow = typeof window !== 'undefined'
 if (isWindow) {
