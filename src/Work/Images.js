@@ -41,9 +41,9 @@ const Images = (props) => {
       <div className="back-to-top test">
         {info}
       </div>
-      <Fullscreen 
-        img={imageFullscreen} 
-        toShow={showFullscreen} 
+      <Fullscreen
+        img={imageFullscreen}
+        toShow={showFullscreen}
         onExit={hideFullscreen}
         onPrev={prevFullscreen}
         onNext={nextFullscreen}>
@@ -71,7 +71,7 @@ function reducer(state, action) {
       lastY: newY,
       showIcon: newY > 500
     }
-  } else if (action.type === 'fullscreen') {
+  } else if (action.type === 'imageFullscreen') {
     if (!action.imageFullscreen) { return state }
     return {
       ...state,
@@ -90,7 +90,7 @@ function reducer(state, action) {
 
 function useScroll({ list, path, hash, workOnClick, workOnLoad, DEV }) {
   const [state, dispatch] = useReducer(reducer, initialState)
-  const { showIcon, imageFullscreen, showFullscreen, lastY } = state
+  const { showIcon, lastY, showFullscreen, imageFullscreen } = state
 
   useEffect(() => {
     let ticking = false
@@ -114,13 +114,13 @@ function useScroll({ list, path, hash, workOnClick, workOnLoad, DEV }) {
     }
   }, [dispatch, hash])
 
-  const setImageFullscreen = (img) => dispatch({ type: 'fullscreen', imageFullscreen: img })
+  const setImageFullscreen = (img) => dispatch({ type: 'imageFullscreen', imageFullscreen: img })
   const setShowFullscreen = (toShow) => dispatch({ type: 'showFullscreen', showFullscreen: toShow })
   const hideFullscreen = () => setShowFullscreen(false)
-  const prevFullscreen = () => scrollToAndFullscreen(getImage(true))
-  const nextFullscreen = () => scrollToAndFullscreen(getImage(false))
+  const prevFullscreen = () => scrollToAndFullscreen(getPrevOrNextImage(true))
+  const nextFullscreen = () => scrollToAndFullscreen(getPrevOrNextImage(false))
 
-  const getImage = (prev) => {
+  const getPrevOrNextImage = (prev) => {
     try {
       // get current index
       let currentIndex = 0
@@ -129,7 +129,7 @@ function useScroll({ list, path, hash, workOnClick, workOnLoad, DEV }) {
         currentIndex = Number(div.dataset.index)
         console.log(`getImage currentIndex ${currentIndex}/${list.length}`, prev)
       }
-      if (prev && currentIndex === 0 || !prev && currentIndex === (list.length - 1)) { return null }
+      if ((prev && currentIndex === 0) || (!prev && currentIndex === (list.length - 1))) { return null }
       currentIndex = currentIndex + 1 * (prev ? -1 : 1)
 
       const img = document.querySelector(`div[data-index="${currentIndex}"] img`)
