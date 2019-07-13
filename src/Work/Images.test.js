@@ -30,12 +30,14 @@ const getProps = (hash) => ({
 const handleImageLoaded = jest.fn()
 
 it('Images renders without crashing', () => {
+  isTouchDevice(false)
   const props = getProps('')
   const div = document.createElement('div')
   ReactDOM.render(<Images {...props} />, div)
 })
 
 it('Images renders correctly', () => {
+  isTouchDevice(false)
   const props = getProps('')
   const tree = renderer
     .create(<Images {...props} />)
@@ -44,6 +46,7 @@ it('Images renders correctly', () => {
 })
 
 it(`Images renders correctly after first image loaded`, () => {
+  isTouchDevice(false)
   const props = getProps('')
   const wrapper = mount(<Images {...props} />)
   const firstChild = wrapper.find('.images').childAt(0)

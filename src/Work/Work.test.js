@@ -21,6 +21,7 @@ const getProps = path => (
 afterEach(cleanup)
 
 it('makes an initial API call and renders, first two images to have src provided', async () => {
+  isTouchDevice(false)
   const props = getProps('painting')
   const {getAllByTitle, container} = render(
     <Work {...props} />,
