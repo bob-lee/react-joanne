@@ -11,10 +11,9 @@ div#fullscreen {
   justify-content: space-around;
   opacity: 0;
   visibility: hidden;
-  transition: visibility .4s linear, opacity .4s linear;
-}
-div#fullscreen.left {
-  left: -50%
+  /* transition-property: visibility, opacity, tranform;
+  transition-duration: .4s, .4s, 0s;  */
+  /* transition: visibility .4s linear, opacity .4s linear, transform 0s ease-in-out; */
 }
 div#fullscreen.show {
   opacity: 1;
@@ -22,7 +21,6 @@ div#fullscreen.show {
 }
 div#fullscreen i {
   position: absolute;
-  z-index: 220;
   padding: 5px;
 }
 div#fullscreen.touchDevice i {
@@ -37,6 +35,9 @@ div#fullscreen i.exit {
 div#fullscreen i.exit.show {
   opacity: 1;
 }
+div#fullscreen i svg {
+  color: white;
+}
 div#fullscreen i.prev {
   top: calc(50% - 22px);
   left: 5px;
@@ -48,6 +49,28 @@ div#fullscreen i.next {
 div#fullscreen i:hover {
   cursor: pointer;
 }
-div#fullscreen canvas {
-  z-index: 219;
+
+.fullscreen-enter {
+  transform: translateX(100%);
+}
+.fullscreen-enter.left {
+  transform: translateX(-100%);
+}
+
+.fullscreen-enter.fullscreen-enter-active {
+  transform: translateX(0%);
+  transition: transform .8s ease-in-out;
+}
+
+.fullscreen-exit {
+  transform: translateX(0%);
+}
+
+.fullscreen-exit.fullscreen-exit-active {
+  transform: translateX(-100%);
+  transition: transform .8s ease-in-out;
+}
+.fullscreen-exit.fullscreen-exit-active.left {
+  transform: translateX(100%);
+  transition: transform .8s ease-in-out;
 }
