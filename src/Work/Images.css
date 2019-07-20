@@ -1,0 +1,34 @@
+.icons .icon {
+  z-index: 214;
+  position: fixed;
+  top: calc(50% - 30px);
+  height: 60px;
+  width: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background: white;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility .4s linear, opacity .4s linear, transform .3s linear;
+}
+.icons.show .icon {
+  visibility: visible;
+  opacity: 0.3;
+}
+
+.icons .icon.exit {
+  top: 1em;
+  left: 5px;
+}
+.icons .icon.prev {
+  left: 5px;
+}
+.icons .icon.next {
+  right: 5px;
+}
+.icons .icon:hover {
+  cursor: pointer;
+  transform:scale(1.05);
+}

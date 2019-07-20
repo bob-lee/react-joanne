@@ -19,36 +19,6 @@ div#fullscreen.show {
   opacity: 1;
   visibility: visible;
 }
-div#fullscreen i {
-  position: absolute;
-  padding: 5px;
-}
-div#fullscreen.touchDevice i {
-  opacity: 0;
-}
-div#fullscreen i.exit {
-  top: 5px;
-  left: 5px;
-  opacity: 0;
-  transition: opacity .4s linear;
-}
-div#fullscreen i.exit.show {
-  opacity: 1;
-}
-div#fullscreen i svg {
-  color: white;
-}
-div#fullscreen i.prev {
-  top: calc(50% - 22px);
-  left: 5px;
-}
-div#fullscreen i.next {
-  top: calc(50% - 22px);
-  right: 5px;
-}
-div#fullscreen i:hover {
-  cursor: pointer;
-}
 
 .fullscreen-enter {
   transform: translateX(100%);
