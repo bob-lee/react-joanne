@@ -1,7 +1,47 @@
 .profile {
-  /*border-top: 1px solid red;
-  border-bottom: 1px solid red;*/
+  padding: .4em;
+  padding-top: 1.4em;
+}
+.profile .profileImage {
+  width: 90%;
+  min-height: 230px;
+  margin: 0 auto;
 
+  background-image: url("./1Flower99_800t.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+@media only screen
+and (min-width: 768px) {
+  .profile .profileImage {
+    min-height: calc(50vh);
+  }
+}
+
+.content {
+  margin-top: 1.5em;
+}
+.content p:not(.by)::before {
+  content: "\00a0\00a0";
+}
+
+.content p.by::after {
+  content: "\00a0\00a0";
+}
+.content p.by {
+  text-align: right;
+}
+
+
+/*
+.profile1 .imageProfile {
+  min-width: 100%;
+  height: auto;
+}
+
+.profile {
   width: calc(100vw - 0.0em);
   height: calc(100vh - 7.7em);
   position: relative;
@@ -16,13 +56,15 @@
 .profile .content {
   position: absolute;
   top: 1em;
-  /* max-height: calc(100vh - 7.7em); */
-  margin: 0 0.4em;
+  max-height: calc(80%);
+  overflow-y: auto;
+  width: 80vw;
+  height: calc(40%);
+  left: 50%;
+  transform: translateX(-50%);
   padding: 0.4em;
   background: rgba(253, 250, 243, 0.7);
-	/* border: 1px solid silver; */
   border-radius: .5em;
-  /*z-index: 1;*/
 }
 
 ul {
@@ -61,7 +103,6 @@ and (min-width: 415px) {
 
 .profile::before,
 .profile::after {
-  /* border: 1px solid blue; */
   content: "";
   position: absolute;
   left: 0;
@@ -76,8 +117,8 @@ and (min-width: 415px) {
   top: 0;
 }
 .profile::after {
-  /* border: 1px solid gray; */
   bottom: 0;
 
   background: linear-gradient(to bottom,rgba(253,250,243,0),rgba(253,250,243,1) 70%,rgba(253,250,243,1));
 }
+*/
