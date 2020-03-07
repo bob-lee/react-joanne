@@ -44,7 +44,7 @@ it('Profile renders without crashing 2', () => {
 
 
 
-it(`should have {animationPlayState:'running'} style on 1st click 2`, () => {
+it.skip(`should have {animationPlayState:'running'} style on 1st click 2`, () => {
   firstRender(true)
 
   const profile = container.querySelector('.profile')
@@ -103,14 +103,14 @@ it('Profile renders correctly for non-touch device', () => {
   expect(tree).toMatchSnapshot()
 })
 
-it(`initially should have empty {} style`, () => {
+it.skip(`initially should have empty {} style`, () => {
   isTouchDevice(true)
   const wrapper = shallow(<Profile />)
   //expect(wrapper.state().style).toEqual({})
   expect(wrapper.props().style).toEqual({})
 })
 
-it(`should have {animationPlayState:'running'} style on 1st click`, () => {
+it.skip(`should have {animationPlayState:'running'} style on 1st click`, () => {
   isTouchDevice(true)
   const wrapper = shallow(<Profile />)
   wrapper.simulate('click')
@@ -118,7 +118,7 @@ it(`should have {animationPlayState:'running'} style on 1st click`, () => {
   expect(wrapper.props().style.animationPlayState).toBe('running')
 })
 
-it(`should toggle animationPlayState on 2nd click`, () => {
+it.skip(`should toggle animationPlayState on 2nd click`, () => {
   isTouchDevice(true)
   const wrapper = shallow(<Profile />)
   

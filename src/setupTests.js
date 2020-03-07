@@ -11,7 +11,8 @@ global.shallow = shallow
 global.mount = mount
 global.isTouchDevice = (matches) => {
   Object.defineProperty(window, 'matchMedia', {
-    value: jest.fn(() => ({ matches: matches }))
+    value: jest.fn(() => ({ matches: matches })),
+    writable: true
   })
 }
 chai.use(chaiEnzyme())
