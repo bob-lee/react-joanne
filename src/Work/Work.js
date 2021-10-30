@@ -205,7 +205,7 @@ ratio:${roundUp(currentRatio, 3)}->${roundUp(newRatio, 3)}`)
 
     const applyItems = (hash) => (items) => {
       let initialIndex = 0
-      const list = items.reverse().map((item, index) => {
+      const list = items/*.reverse()*/.map((item, index) => {
         if (hash && hash === item.fileName) {
           initialIndex = index
         }
