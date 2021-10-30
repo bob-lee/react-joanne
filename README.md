@@ -8,9 +8,9 @@ The website was built and deployed using following technologies:
 * [React](https://reactjs.org/): A JavaScript library for building user interfaces
 * [Create React App](https://github.com/facebookincubator/create-react-app): a React application build tool
 * [Workbox](https://workboxjs.org/): JavaScript libraries for Progressive Web Apps
-* [Firebase](https://firebase.google.com/): cloud platform for storage, hosting
+* [Firebase](https://firebase.google.com/): cloud platform for storage, database, hosting and functions
 
-[Visit the web!](https://react-joanne.firebaseapp.com)
+[Visit the web!](https://react-joanne.web.app)
 
 
 ```
